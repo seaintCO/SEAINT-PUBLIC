@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEAINT — Digital Assets &amp; Templates</title>
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Geist:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<!-- Scripts -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+<!-- Custom Styles -->
+<style>
+/* Base settings */
+body { font-family: 'Geist', 'Inter', sans-serif; background-color: #000; color: #e2e8f0; }
+.font-mono { font-family: 'JetBrains Mono', monospace; }
+/* Animations */
+@keyframes fadeSlideIn {
+0% { opacity: 0; transform: translateY(20px); filter: blur(8px); }
+100% { opacity: 1; transform: translateY(0); filter: blur(0px); }
+}
+.animate-enter { animation: fadeSlideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+/* Button & UI */
+.btn-wrapper .btn { transition: transform .2s ease-in-out, background-color .2s; }
+.btn-wrapper .btn:hover { background-color: #f1f5f9; transform: scale(1.01); }
+.btn-wrapper .btn:active { transform: scale(.98); }
+/* Custom Scrollbar */
+.custom-scroll::-webkit-scrollbar { width: 4px; }
+.custom-scroll::-webkit-scrollbar-track { background: transparent; }
+.custom-scroll::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+.custom-scroll::-webkit-scrollbar-thumb:hover { background: #555; }
+/* Checkbox Styling */
+input[type="checkbox"] { appearance: none; -webkit-appearance: none; background-color: rgba(255,255,255,0.05); margin: 0; color: currentColor; width: 1.15em; height: 1.15em; border: 1px solid rgba(255,255,255,0.15); border-radius: 0.25em; display: grid; place-content: center; transition: all 0.2s; cursor: pointer; }
+input[type="checkbox"]::before { content: ""; width: 0.65em; height: 0.65em; transform: scale(0); transition: 120ms transform ease-in-out; box-shadow: inset 1em 1em white; transform-origin: center; clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%); }
+input[type="checkbox"]:checked { background-color: #4f46e5; border-color: #4f46e5; }
+input[type="checkbox"]:checked::before { transform: scale(1); }
+/* Variant Styles */
+.variant-modern { --radius: 0.75rem; --font-head: 'Geist'; }
+.variant-minimal { --radius: 0px; --font-head: 'Inter'; }
+.variant-bold { --radius: 0.25rem; --font-head: 'JetBrains Mono'; }
+/* Glass */
+.glass-card { background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%); border: 1px solid rgba(255, 255, 255, 0.08); backdrop-filter: blur(12px); }
+</style></head>
+
+<body class="antialiased text-slate-100 bg-[#000000] selection:bg-indigo-500/30 selection:text-indigo-200">
+
+    <!-- Background Ambience -->
+    <div class="fixed top-0 left-0 right-0 bottom-0 pointer-events-none z-[-10]">
+        <div class="absolute top-[-10%] left-[20%] w-[500px] h-[500px] bg-indigo-900/10 rounded-full blur-[120px] opacity-40"></div>
+        <div class="absolute bottom-[-10%] right-[20%] w-[500px] h-[500px] bg-blue-900/10 rounded-full blur-[120px] opacity-40"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="fixed top-6 left-0 right-0 z-50 px-6">
+        <div class="max-w-5xl mx-auto">
+            <div class="glass-card rounded-full px-4 py-2.5 flex items-center justify-between backdrop-blur-xl bg-black/60">
+                <!-- Home Link Logic -->
+                <a href="javascript:window.location.href=window.location.origin" class="flex items-center gap-2.5 pl-2 group hover:opacity-80 transition-opacity">
+                    <span class="w-2 h-2 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.5)]"></span>
+                    <span class="text-sm font-semibold text-white/90 tracking-tight">SEAINT<span class="font-light text-white/30">_ASSETS</span></span>
+                </a>
+
+                <nav class="hidden md:flex gap-1 bg-white/5 border-white/5 border rounded-full pt-1 pr-1 pb-1 pl-1 items-center">
+                    <a href="#templates" class="hover:text-white hover:bg-white/10 transition-all text-[11px] font-medium text-white/60 rounded-full py-1.5 px-4">Templates</a>
+                    <a href="#prompts" class="hover:text-white hover:bg-white/10 transition-all text-[11px] font-medium text-white/60 rounded-full py-1.5 px-4">Prompt Packs</a>
+                    <a href="#guides" class="hover:text-white hover:bg-white/10 transition-all text-[11px] font-medium text-white/60 rounded-full py-1.5 px-4">PDF Guides</a>
+                </nav>
+
+                <div class="relative flex items-center gap-3">
+                    <a href="#shop" class="flex items-center gap-1.5 text-[11px] font-medium text-white/80 hover:text-white transition-colors">
+                        Cart (<span id="cart-count">0</span>)
+                    </a>
+                    <a href="#shop" class="hidden sm:flex items-center gap-1.5 hover:bg-gray-200 transition-colors text-[11px] font-medium text-black tracking-tight bg-white rounded-full py-1.5 px-4">
+                        Get All Access
+                        <iconify-icon icon="solar:stars-minimalistic-linear"></iconify-icon>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="overflow-hidden pt-40 pb-12 relative px-6">
+        <div class="max-w-4xl mx-auto text-center animate-enter z-10 relative">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-[10px] uppercase tracking-wider text-white/60 mb-8 cursor-default">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>
+                Instant Delivery
+            </div>
+            
+            <h1 class="text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight text-white mb-6 leading-[0.95]">
+                Ship your next idea <br>
+                <span class="text-white/40">before coffee break.</span>
+            </h1>
+            
+            <p class="text-base text-white/50 max-w-lg mx-auto mb-10 leading-relaxed font-light">
+                Premium, handcrafted digital assets. From high-converting landing pages to systemized AI prompts. Customize, buy, and deploy in minutes.
+            </p>
+        </div>
+    </section>
+
+    <!-- Configurator / Main Product Showcase -->
+    <section class="pb-24 px-6 relative" id="shop">
+        <div class="max-w-6xl mx-auto">
+            <!-- Grid Layout -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Left Column: Customizer Controls -->
+                <div class="lg:col-span-4 lg:sticky lg:top-24 space-y-6 animate-enter" style="animation-delay: 0.1s">
+                    <div class="glass-card rounded-xl p-1">
+                        <div class="p-5 border-b border-white/5">
+                            <div class="flex justify-between items-start mb-2">
+                                <h2 class="text-lg font-medium text-white">SaaS Landing Kit</h2>
+                                <span class="text-[10px] font-mono text-emerald-400 bg-emerald-400/10 px-1.5 py-0.5 rounded border border-emerald-400/20">V2.4</span>
+                            </div>
+                            <p class="text-xs text-white/40 leading-relaxed">High-conversion template for startups. Fully responsive, dark mode ready, and easy to edit.</p>
+                        </div>
+
+                        <div class="p-5 space-y-6">
+                            <!-- Variant Selector -->
+                            <div>
+                                <label class="text-[10px] font-semibold text-white/40 uppercase tracking-widest block mb-3">Style Variant</label>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <button class="variant-btn relative h-14 rounded-lg border border-indigo-500 bg-indigo-500/10 overflow-hidden transition-all text-left p-0" onclick="updateVariant('modern', this)">
+                                        <span class="absolute bottom-2 left-2 text-[10px] font-medium text-indigo-300 z-10">Modern</span>
+                                        <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-transparent opacity-100"></div>
+                                    </button>
+                                    <button class="variant-btn relative h-14 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 overflow-hidden transition-all text-left p-0" onclick="updateVariant('minimal', this)">
+                                        <span class="absolute bottom-2 left-2 text-[10px] font-medium text-white/60 z-10">Minimal</span>
+                                    </button>
+                                    <button class="variant-btn relative h-14 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 overflow-hidden transition-all text-left p-0" onclick="updateVariant('bold', this)">
+                                        <span class="absolute bottom-2 left-2 text-[10px] font-medium text-white/60 z-10">Bold</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Accent Color -->
+                            <div>
+                                <label class="text-[10px] font-semibold text-white/40 uppercase tracking-widest block mb-3">Brand Color</label>
+                                <div class="flex gap-3">
+                                    <button onclick="updateColor('indigo')" id="btn-color-indigo" class="w-8 h-8 rounded-full bg-indigo-500 ring-2 ring-offset-2 ring-offset-black ring-white/50 transition-all hover:scale-110 focus:outline-none"></button>
+                                    <button onclick="updateColor('emerald')" id="btn-color-emerald" class="w-8 h-8 rounded-full bg-emerald-500 border border-white/10 transition-all hover:scale-110 focus:outline-none"></button>
+                                    <button onclick="updateColor('rose')" id="btn-color-rose" class="w-8 h-8 rounded-full bg-rose-500 border border-white/10 transition-all hover:scale-110 focus:outline-none"></button>
+                                    <button onclick="updateColor('orange')" id="btn-color-orange" class="w-8 h-8 rounded-full bg-orange-500 border border-white/10 transition-all hover:scale-110 focus:outline-none"></button>
+                                </div>
+                            </div>
+
+                            <!-- Content Toggles -->
+                            <div>
+                                <label class="text-[10px] font-semibold text-white/40 uppercase tracking-widest block mb-3">Components</label>
+                                <div class="space-y-2">
+                                    <label class="flex items-center justify-between p-2.5 rounded-lg bg-white/5 border border-white/5 cursor-pointer hover:border-white/10 transition-colors group">
+                                        <div class="flex items-center gap-2">
+                                            <iconify-icon icon="solar:dollar-minimalistic-linear" class="text-white/60 group-hover:text-white transition-colors"></iconify-icon>
+                                            <span class="text-xs text-white/80 group-hover:text-white transition-colors">Pricing Tables</span>
+                                        </div>
+                                        <input type="checkbox" id="check-pricing" checked="" onchange="updateConfig()">
+                                    </label>
+                                    <label class="flex items-center justify-between p-2.5 rounded-lg bg-white/5 border border-white/5 cursor-pointer hover:border-white/10 transition-colors group">
+                                        <div class="flex items-center gap-2">
+                                            <iconify-icon icon="solar:question-circle-linear" class="text-white/60 group-hover:text-white transition-colors"></iconify-icon>
+                                            <span class="text-xs text-white/80 group-hover:text-white transition-colors">FAQ Section</span>
+                                        </div>
+                                        <input type="checkbox" id="check-faq" checked="" onchange="updateConfig()">
+                                    </label>
+                                    <label class="flex items-center justify-between p-2.5 rounded-lg bg-white/5 border border-white/5 cursor-pointer hover:border-white/10 transition-colors group">
+                                        <div class="flex items-center gap-2">
+                                            <iconify-icon icon="solar:pen-new-square-linear" class="text-white/60 group-hover:text-white transition-colors"></iconify-icon>
+                                            <span class="text-xs text-white/80 group-hover:text-white transition-colors">Blog CMS</span>
+                                        </div>
+                                        <input type="checkbox" id="check-blog" onchange="updateConfig()">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pricing Footer -->
+                        <div class="p-5 border-t border-white/5 bg-white/[0.02] rounded-b-xl">
+                            <div class="flex justify-between items-end mb-4">
+                                <span class="text-xs text-white/40">Total Price</span>
+                                <div class="flex items-end gap-1">
+                                    <span class="text-2xl font-semibold text-white tracking-tight" id="display-price">$44</span>
+                                    <span class="text-xs text-white/40 mb-1">USD</span>
+                                </div>
+                            </div>
+                            <div class="btn-wrapper">
+                                <button onclick="simulatePurchase()" class="btn gap-2">
+                                    Purchase &amp; Download
+                                    <iconify-icon icon="solar:download-linear"></iconify-icon>
+                                </button>
+                            </div>
+                            <div class="mt-3 text-center">
+                                <span class="text-[10px] text-white/30 flex items-center justify-center gap-1">
+                                    <iconify-icon icon="solar:shield-check-linear"></iconify-icon>
+                                    Secure payment via Stripe
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Live Preview -->
+                <div class="lg:col-span-8 animate-enter" style="animation-delay: 0.2s">
+                    <div class="relative w-full rounded-xl bg-[#111] border border-white/10 overflow-hidden shadow-2xl flex flex-col h-[750px]">
+                        <!-- Browser Header -->
+                        <div class="h-10 border-b border-white/5 bg-[#18181b] flex items-center px-4 gap-4 flex-shrink-0">
+                            <div class="flex gap-1.5">
+                                <div class="w-2.5 h-2.5 rounded-full bg-red-500/20 border border-red-500/30"></div>
+                                <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/20 border border-yellow-500/30"></div>
+                                <div class="w-2.5 h-2.5 rounded-full bg-green-500/20 border border-green-500/30"></div>
+                            </div>
+                            <div class="flex-1 flex justify-center">
+                                <div class="bg-black/40 border border-white/5 rounded px-3 py-0.5 w-48 text-center">
+                                    <span class="text-[9px] text-white/30 font-mono flex items-center justify-center gap-1">
+                                        <iconify-icon icon="solar:lock-linear"></iconify-icon> preview.seaint.com
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Iframe Simulation (The Preview) -->
+                        <div id="preview-viewport" class="bg-black relative flex-1 overflow-y-auto custom-scroll transition-colors duration-500">
+                            
+                            <!-- Dynamic Content Container -->
+                            <div id="preview-content" class="min-h-full">
+                                
+                                <!-- Preview Hero -->
+                                <div class="p-12 md:p-20 flex flex-col items-center text-center border-b border-white/5 relative overflow-hidden">
+                                    <!-- Dynamic Gradient Background in Preview -->
+                                    <div id="preview-glow" class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-indigo-500/10 blur-[100px] rounded-full pointer-events-none transition-colors duration-500"></div>
+
+                                    <div id="preview-badge" class="relative inline-flex items-center gap-1 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-[10px] uppercase tracking-wide border border-indigo-500/20 mb-6 transition-all duration-300">
+                                        Release 2.4
+                                    </div>
+                                    
+                                    <h1 id="preview-title" class="relative text-5xl md:text-6xl font-semibold text-white mb-6 tracking-tight max-w-lg transition-all duration-300">
+                                        Automate your workflow.
+                                    </h1>
+                                    
+                                    <p id="preview-desc" class="relative text-white/50 text-sm max-w-md mb-8 leading-relaxed">
+                                        The ultimate starter kit for SaaS founders. Build, launch, and scale your product without writing code.
+                                    </p>
+                                    
+                                    <div class="relative flex gap-3">
+                                        <button id="preview-btn-primary" class="bg-indigo-600 text-white text-xs px-6 py-3 rounded-lg font-medium hover:opacity-90 transition-all shadow-lg shadow-indigo-500/20">Get Started</button>
+                                        <button id="preview-btn-secondary" class="bg-white/5 text-white text-xs px-6 py-3 rounded-lg font-medium border border-white/10 hover:bg-white/10 transition-all">Documentation</button>
+                                    </div>
+
+                                    <!-- Mock Dashboard Image -->
+                                    <div id="preview-img-container" class="relative mt-12 rounded-lg border border-white/10 bg-white/5 p-1 w-full max-w-md shadow-2xl transform transition-transform duration-500 hover:scale-[1.02]">
+                                        <div class="aspect-video bg-[#050505] rounded overflow-hidden relative">
+                                            <div id="preview-img-glow" class="absolute inset-0 bg-gradient-to-tr from-indigo-500/10 via-transparent to-transparent opacity-50 transition-colors duration-500"></div>
+                                            <div class="absolute bottom-4 left-4 right-4 h-1/2 bg-white/5 rounded border border-white/5"></div>
+                                            <div class="absolute top-4 left-4 w-1/3 h-2 bg-white/10 rounded"></div>
+                                            <div class="absolute top-8 left-4 w-1/4 h-2 bg-white/5 rounded"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Preview Pricing (Toggleable) -->
+                                <div id="section-pricing" class="py-16 px-8 border-b border-white/5 transition-all duration-500">
+                                    <h3 class="text-center text-lg text-white font-medium mb-8">Simple Pricing</h3>
+                                    <div class="grid grid-cols-2 gap-4 max-w-lg mx-auto">
+                                        <div class="rounded-lg border border-white/10 bg-white/5 p-6 hover:border-white/20 transition-colors">
+                                            <div class="text-xs text-white/50 mb-2">Basic</div>
+                                            <div class="text-xl text-white font-semibold mb-4">$19</div>
+                                            <div class="h-1 w-full bg-white/10 rounded mb-2"></div>
+                                            <div class="h-1 w-2/3 bg-white/10 rounded"></div>
+                                        </div>
+                                        <div id="preview-card-active" class="rounded-lg border border-indigo-500/50 bg-indigo-500/5 p-6 relative transition-colors duration-300">
+                                            <div id="preview-card-badge" class="text-xs text-indigo-300 mb-2 font-medium">Pro</div>
+                                            <div class="text-xl text-white font-semibold mb-4">$49</div>
+                                            <div class="h-1 w-full bg-white/10 rounded mb-2"></div>
+                                            <div class="h-1 w-2/3 bg-white/10 rounded"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Preview FAQ (Toggleable) -->
+                                <div id="section-faq" class="py-16 px-8 border-b border-white/5 transition-all duration-500">
+                                    <h3 class="text-center text-lg text-white font-medium mb-8">FAQ</h3>
+                                    <div class="max-w-md mx-auto space-y-3">
+                                        <div class="border-b border-white/5 pb-3">
+                                            <div class="flex justify-between items-center text-xs text-white">
+                                                <span>Is this refundable?</span>
+                                                <iconify-icon icon="solar:alt-arrow-down-linear" class="text-white/40"></iconify-icon>
+                                            </div>
+                                        </div>
+                                        <div class="border-b border-white/5 pb-3">
+                                            <div class="flex justify-between items-center text-xs text-white">
+                                                <span>Commercial license included?</span>
+                                                <iconify-icon icon="solar:alt-arrow-down-linear" class="text-white/40"></iconify-icon>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                 <!-- Preview Blog (Toggleable) -->
+                                 <div id="section-blog" class="hidden py-16 px-8 transition-all duration-500 opacity-0 transform translate-y-4">
+                                    <h3 class="text-center text-lg text-white font-medium mb-8">Latest Updates</h3>
+                                    <div class="max-w-lg mx-auto grid grid-cols-2 gap-4">
+                                        <div class="aspect-square bg-white/5 rounded border border-white/5 p-4 flex flex-col justify-end">
+                                            <div class="h-2 w-full bg-white/10 rounded mb-2"></div>
+                                            <div class="h-2 w-1/2 bg-white/10 rounded"></div>
+                                        </div>
+                                        <div class="aspect-square bg-white/5 rounded border border-white/5 p-4 flex flex-col justify-end">
+                                            <div class="h-2 w-full bg-white/10 rounded mb-2"></div>
+                                            <div class="h-2 w-1/2 bg-white/10 rounded"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Additional Products -->
+    <section class="py-24 border-t border-white/5 bg-[#050505]" id="templates">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex items-center justify-between mb-12">
+                <h2 class="text-2xl font-medium text-white">More Curated Assets</h2>
+                <a href="#" class="text-xs text-white/40 hover:text-white transition-colors flex items-center gap-1">
+                    View all
+                    <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Product Card 1 -->
+                <div class="glass-card rounded-xl p-0 overflow-hidden group hover:border-white/20 transition-all duration-300">
+                    <div class="aspect-[4/3] bg-gradient-to-br from-gray-900 to-black relative p-6 flex flex-col justify-between">
+                        <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                        <div class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center text-white backdrop-blur-md border border-white/10">
+                            <iconify-icon icon="solar:document-text-linear" class="text-xl"></iconify-icon>
+                        </div>
+                        <div class="absolute right-4 top-4">
+                            <span class="px-2 py-1 rounded bg-black/50 backdrop-blur border border-white/10 text-[10px] text-white">$19</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-sm font-medium text-white mb-1">Cold Email Scripts</h3>
+                        <p class="text-xs text-white/50 mb-4 line-clamp-2">50+ battle-tested templates for outreach.</p>
+                        <button class="w-full py-2 rounded border border-white/10 bg-white/5 text-[11px] font-medium text-white hover:bg-white/10 transition-colors">Add to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Product Card 2 -->
+                <div class="glass-card rounded-xl p-0 overflow-hidden group hover:border-white/20 transition-all duration-300">
+                    <div class="aspect-[4/3] bg-gradient-to-br from-gray-900 to-black relative p-6 flex flex-col justify-between">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/20 blur-3xl"></div>
+                        <div class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center text-white backdrop-blur-md border border-white/10">
+                            <iconify-icon icon="solar:magic-stick-3-linear" class="text-xl"></iconify-icon>
+                        </div>
+                        <div class="absolute right-4 top-4">
+                            <span class="px-2 py-1 rounded bg-black/50 backdrop-blur border border-white/10 text-[10px] text-white">$29</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-sm font-medium text-white mb-1">Midjourney Masterclass</h3>
+                        <p class="text-xs text-white/50 mb-4 line-clamp-2">Comprehensive prompt engineering guide PDF + Video.</p>
+                        <button class="w-full py-2 rounded border border-white/10 bg-white/5 text-[11px] font-medium text-white hover:bg-white/10 transition-colors">Add to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Product Card 3 -->
+                <div class="glass-card rounded-xl p-0 overflow-hidden group hover:border-white/20 transition-all duration-300">
+                    <div class="aspect-[4/3] bg-gradient-to-br from-gray-900 to-black relative p-6 flex flex-col justify-between">
+                        <div class="absolute bottom-0 left-0 w-32 h-32 bg-emerald-500/20 blur-3xl"></div>
+                        <div class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center text-white backdrop-blur-md border border-white/10">
+                            <iconify-icon icon="solar:figma-file-linear" class="text-xl"></iconify-icon>
+                        </div>
+                        <div class="absolute right-4 top-4">
+                            <span class="px-2 py-1 rounded bg-black/50 backdrop-blur border border-white/10 text-[10px] text-white">$39</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-sm font-medium text-white mb-1">Agency OS Notion</h3>
+                        <p class="text-xs text-white/50 mb-4 line-clamp-2">The complete operating system for digital agencies.</p>
+                        <button class="w-full py-2 rounded border border-white/10 bg-white/5 text-[11px] font-medium text-white hover:bg-white/10 transition-colors">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/5 bg-black py-12 px-6">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-3">
+                <div class="w-6 h-6 rounded bg-white/10 text-white flex items-center justify-center text-[10px] border border-white/5">
+                    <iconify-icon icon="solar:box-minimalistic-linear"></iconify-icon>
+                </div>
+                <span class="text-xs text-white/40 font-mono">© 2024 SEAINT ASSETS.</span>
+            </div>
+            <div class="flex gap-6">
+                <a href="#" class="text-xs text-white/40 hover:text-white transition-colors">Support</a>
+                <a href="#" class="text-xs text-white/40 hover:text-white transition-colors">License</a>
+                <a href="#" class="text-xs text-white/40 hover:text-white transition-colors">Twitter</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Logic -->
+    <script>
+        // State
+        const prices = { base: 19, pricing: 15, faq: 10, blog: 20 };
+        let currentVariant = 'modern';
+        let currentColor = 'indigo';
+
+        // Color Maps
+        const colorMap = {
+            indigo: {
+                badgeBg: 'bg-indigo-500/10', badgeText: 'text-indigo-400', badgeBorder: 'border-indigo-500/20',
+                btnBg: 'bg-indigo-600', shadow: 'shadow-indigo-500/20',
+                cardBorder: 'border-indigo-500/50', cardBg: 'bg-indigo-500/5', cardText: 'text-indigo-300',
+                glow: 'bg-indigo-500/10', gradient: 'from-indigo-500/10'
+            },
+            emerald: {
+                badgeBg: 'bg-emerald-500/10', badgeText: 'text-emerald-400', badgeBorder: 'border-emerald-500/20',
+                btnBg: 'bg-emerald-600', shadow: 'shadow-emerald-500/20',
+                cardBorder: 'border-emerald-500/50', cardBg: 'bg-emerald-500/5', cardText: 'text-emerald-300',
+                glow: 'bg-emerald-500/10', gradient: 'from-emerald-500/10'
+            },
+            rose: {
+                badgeBg: 'bg-rose-500/10', badgeText: 'text-rose-400', badgeBorder: 'border-rose-500/20',
+                btnBg: 'bg-rose-600', shadow: 'shadow-rose-500/20',
+                cardBorder: 'border-rose-500/50', cardBg: 'bg-rose-500/5', cardText: 'text-rose-300',
+                glow: 'bg-rose-500/10', gradient: 'from-rose-500/10'
+            },
+            orange: {
+                badgeBg: 'bg-orange-500/10', badgeText: 'text-orange-400', badgeBorder: 'border-orange-500/20',
+                btnBg: 'bg-orange-600', shadow: 'shadow-orange-500/20',
+                cardBorder: 'border-orange-500/50', cardBg: 'bg-orange-500/5', cardText: 'text-orange-300',
+                glow: 'bg-orange-500/10', gradient: 'from-orange-500/10'
+            }
+        };
+
+        // DOM Elements
+        const displayPrice = document.getElementById('display-price');
+        const previewBadge = document.getElementById('preview-badge');
+        const previewBtn = document.getElementById('preview-btn-primary');
+        const previewCard = document.getElementById('preview-card-active');
+        const previewCardText = document.getElementById('preview-card-badge');
+        const previewGlow = document.getElementById('preview-glow');
+        const previewImgGlow = document.getElementById('preview-img-glow');
+        const cartCount = document.getElementById('cart-count');
+
+        // Functions
+        function updateConfig() {
+            // Price Calculation
+            let total = prices.base;
+            if(document.getElementById('check-pricing').checked) total += prices.pricing;
+            if(document.getElementById('check-faq').checked) total += prices.faq;
+            if(document.getElementById('check-blog').checked) total += prices.blog;
+
+            // Animate Price
+            displayPrice.style.transform = 'scale(1.1)';
+            setTimeout(() => displayPrice.style.transform = 'scale(1)', 150);
+            displayPrice.innerText = `$${total}`;
+
+            // Visibility Toggles
+            toggleSection('section-pricing', 'check-pricing');
+            toggleSection('section-faq', 'check-faq');
+            toggleSection('section-blog', 'check-blog');
+        }
+
+        function toggleSection(sectionId, checkId) {
+            const el = document.getElementById(sectionId);
+            const isChecked = document.getElementById(checkId).checked;
+            
+            if (isChecked) {
+                el.classList.remove('hidden');
+                // Small delay to allow transition to work after removing hidden
+                setTimeout(() => {
+                    el.classList.remove('opacity-0', 'translate-y-4');
+                }, 10);
+            } else {
+                el.classList.add('opacity-0', 'translate-y-4');
+                setTimeout(() => el.classList.add('hidden'), 500);
+            }
+        }
+
+        function updateColor(color) {
+            // Update UI State
+            currentColor = color;
+            
+            // Selection Ring on Buttons
+            ['indigo','emerald','rose','orange'].forEach(c => {
+                const btn = document.getElementById(`btn-color-${c}`);
+                if(c === color) {
+                    btn.className = `w-8 h-8 rounded-full bg-${c}-500 ring-2 ring-offset-2 ring-offset-black ring-white/50 transition-all hover:scale-110 focus:outline-none`;
+                } else {
+                    btn.className = `w-8 h-8 rounded-full bg-${c}-500 border border-white/10 transition-all hover:scale-110 focus:outline-none opacity-60 hover:opacity-100`;
+                }
+            });
+
+            // Apply Styles to Preview
+            const s = colorMap[color];
+            
+            // Badge
+            previewBadge.className = `relative inline-flex items-center gap-1 px-3 py-1 rounded-full ${s.badgeBg} ${s.badgeText} text-[10px] uppercase tracking-wide border ${s.badgeBorder} mb-6 transition-all duration-300`;
+            
+            // Main Button
+            previewBtn.className = `${s.btnBg} text-white text-xs px-6 py-3 rounded-lg font-medium hover:opacity-90 transition-all ${s.shadow}`;
+            
+            // Active Pricing Card
+            previewCard.className = `rounded-lg border ${s.cardBorder} ${s.cardBg} p-6 relative transition-colors duration-300`;
+            previewCardText.className = `text-xs ${s.cardText} mb-2 font-medium`;
+            
+            // Glows
+            previewGlow.className = `absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] ${s.glow} blur-[100px] rounded-full pointer-events-none transition-colors duration-500`;
+            previewImgGlow.className = `absolute inset-0 bg-gradient-to-tr ${s.gradient} via-transparent to-transparent opacity-50 transition-colors duration-500`;
+        }
+
+        function updateVariant(variant, btnElement) {
+            // Update Buttons
+            document.querySelectorAll('.variant-btn').forEach(btn => {
+                // Reset to default state
+                btn.className = 'variant-btn relative h-14 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 overflow-hidden transition-all text-left p-0';
+                btn.querySelector('span').className = 'absolute bottom-2 left-2 text-[10px] font-medium text-white/60 z-10';
+                const existingGlow = btn.querySelector('.absolute.inset-0');
+                if(existingGlow) existingGlow.remove();
+            });
+
+            // Set Active State
+            btnElement.className = 'variant-btn relative h-14 rounded-lg border border-indigo-500 bg-indigo-500/10 overflow-hidden transition-all text-left p-0';
+            btnElement.querySelector('span').className = 'absolute bottom-2 left-2 text-[10px] font-medium text-indigo-300 z-10';
+            
+            const glow = document.createElement('div');
+            glow.className = 'absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-transparent opacity-100';
+            btnElement.appendChild(glow);
+
+            // Update Preview Styles
+            const viewport = document.getElementById('preview-viewport');
+            const title = document.getElementById('preview-title');
+            const desc = document.getElementById('preview-desc');
+            const btns = [document.getElementById('preview-btn-primary'), document.getElementById('preview-btn-secondary')];
+
+            if (variant === 'modern') {
+                viewport.className = "bg-black relative flex-1 overflow-y-auto custom-scroll transition-colors duration-500";
+                title.className = "relative text-5xl md:text-6xl font-semibold text-white mb-6 tracking-tight max-w-lg transition-all duration-300";
+                title.style.fontFamily = "'Geist', sans-serif";
+                btns.forEach(b => b.style.borderRadius = "0.5rem"); // 8px
+            } else if (variant === 'minimal') {
+                viewport.className = "bg-[#050505] relative flex-1 overflow-y-auto custom-scroll transition-colors duration-500";
+                title.className = "relative text-4xl md:text-5xl font-light text-white mb-6 tracking-wide max-w-lg transition-all duration-300";
+                title.style.fontFamily = "'Inter', sans-serif";
+                btns.forEach(b => b.style.borderRadius = "0px");
+            } else if (variant === 'bold') {
+                viewport.className = "bg-[#111] relative flex-1 overflow-y-auto custom-scroll transition-colors duration-500";
+                title.className = "relative text-5xl md:text-6xl font-bold uppercase text-white mb-6 tracking-tighter max-w-lg transition-all duration-300";
+                title.style.fontFamily = "'JetBrains Mono', monospace";
+                btns.forEach(b => b.style.borderRadius = "0.25rem");
+            }
+        }
+
+        function simulatePurchase() {
+            const btn = document.querySelector('.btn-wrapper .btn');
+            const originalText = btn.innerHTML;
+            
+            btn.innerHTML = `<iconify-icon icon="solar:spinner-linear" class="animate-spin text-lg"></iconify-icon> Processing...`;
+            
+            setTimeout(() => {
+                btn.innerHTML = `Success! Check Email`;
+                btn.style.backgroundColor = '#10b981';
+                btn.style.color = '#fff';
+                cartCount.innerText = '0';
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.backgroundColor = '#fff';
+                    btn.style.color = '#000';
+                }, 2000);
+            }, 1200);
+        }
+
+        // Initialize
+        updateConfig();
+    </script>
+
+</body></html>

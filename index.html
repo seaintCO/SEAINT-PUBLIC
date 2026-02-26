@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEAINT — Your 24/7 AI Workforce</title>
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Geist:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<!-- Scripts -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+<!-- Custom Styles -->
+<style>
+/* Base settings */
+body { font-family: 'Geist', 'Inter', sans-serif; background-color: #000; color: #e2e8f0; }
+.font-mono { font-family: 'JetBrains Mono', monospace; }
+/* Floating animations */
+@keyframes float-cursor { 0%,100%{transform:translate(0,0)} 50%{transform:translate(4px,-6px)} }
+@keyframes float-chip-1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-8px,-12px)} }
+@keyframes float-chip-2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(10px,8px)} }
+.float-cursor { animation: float-cursor 3s ease-in-out infinite; }
+.float-chip-1 { animation: float-chip-1 4s ease-in-out infinite; }
+.float-chip-2 { animation: float-chip-2 4.5s ease-in-out infinite; }
+/* Fade Slide In */
+@keyframes fadeSlideIn {
+0% { opacity: 0; transform: translateY(20px); filter: blur(8px); }
+100% { opacity: 1; transform: translateY(0); filter: blur(0px); }
+}
+.animate-enter { animation: fadeSlideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-enter-delay-1 { animation: fadeSlideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards; opacity: 0; }
+.animate-enter-delay-2 { animation: fadeSlideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; opacity: 0; }
+/* Unicorn Mask */
+.unicorn-mask {
+mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, black 15%, black 85%, rgba(0,0,0,0) 100%);
+-webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, black 15%, black 85%, rgba(0,0,0,0) 100%);
+}
+/* Start Creating Button CSS */
+.btn-wrapper { --grid-color: rgba(255,255,255,0.1); --dot-color: #3b82f6; --line-color: #3b82f6; --dot-size: 4px; --line-weight: 1px; --animation-speed: 0.4s; position: relative; display: inline-block; }
+.btn-wrapper::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: inherit; pointer-events: none; background-color: #0000; background-image: repeating-linear-gradient(45deg, var(--grid-color) 0 1px, transparent 2px 5px); opacity: 0; z-index: -1; }
+.btn-wrapper:has(.btn:hover)::after { animation: opacity-anim calc(var(--animation-speed) * 4) ease-in-out forwards; }
+@keyframes opacity-anim { 80% { opacity: 0; } 100% { opacity: 1; } }
+.btn-wrapper .btn { position: relative; display: flex; justify-content: center; align-items: center; padding: 0.8rem 1.5rem; background-color: #fff0; border: 1px solid var(--grid-color); color: #fffd; font-family: "Geist", sans-serif; letter-spacing: -0.01em; font-size: 0.95rem; font-weight: 500; text-transform: capitalize; border-radius: 8px; cursor: pointer; transition: transform .2s ease-in-out, letter-spacing .2s ease-in-out, background-color .2s; overflow: hidden; }
+.btn-wrapper .btn:hover { background-color: #0f172a; color: #fff; transform: scale(1.02); letter-spacing: .01em; border-color: rgba(59,130,246,0.5); }
+.btn-wrapper .btn:active { transform: scale(.98); }
+.btn-wrapper .dot { position: absolute; width: var(--dot-size); aspect-ratio: 1; border-radius: 2px; background-color: var(--dot-color); transition: all .3s ease-in-out; opacity: 0; pointer-events: none; }
+.btn-wrapper:has(.btn:hover) .dot { opacity: 1; }
+.btn-wrapper:has(.btn:hover) .dot.top.left { top: 50%; left: 20%; animation: move-top-left var(--animation-speed) ease-in-out forwards; }
+.btn-wrapper:has(.btn:hover) .dot.top.right { top: 50%; right: 20%; animation: move-top-right var(--animation-speed) ease-in-out forwards; animation-delay: calc(var(--animation-speed)*.6); }
+.btn-wrapper:has(.btn:hover) .dot.bottom.right { bottom: 50%; right: 20%; animation: move-bottom-right var(--animation-speed) ease-in-out forwards; animation-delay: calc(var(--animation-speed)*1.2); }
+.btn-wrapper:has(.btn:hover) .dot.bottom.left { bottom: 50%; left: 20%; animation: move-bottom-left var(--animation-speed) ease-in-out forwards; animation-delay: calc(var(--animation-speed)*1.8); }
+@keyframes move-top-left { 90% { opacity: .6; } 100% { top: calc(var(--dot-size) * -0.5); left: calc(var(--dot-size) * -0.5); opacity: 1; } }
+@keyframes move-top-right { 80% { opacity: .6; } 100% { top: calc(var(--dot-size) * -0.5); right: calc(var(--dot-size) * -0.5); opacity: 1; } }
+@keyframes move-bottom-right { 80% { opacity: .6; } 100% { bottom: calc(var(--dot-size) * -0.5); right: calc(var(--dot-size) * -0.5); opacity: 1; } }
+@keyframes move-bottom-left { 80% { opacity: .6; } 100% { bottom: calc(var(--dot-size) * -0.5); left: calc(var(--dot-size) * -0.5); opacity: 1; } }
+/* Custom Range Slider */
+input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 18px; width: 18px; border-radius: 50%; background: #000; border: 2px solid #6366f1; cursor: grab; margin-top: -7px; box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1); transition: transform 0.1s, box-shadow 0.2s; }
+input[type=range]::-webkit-slider-thumb:active { cursor: grabbing; transform: scale(1.1); box-shadow: 0 0 0 6px rgba(99, 102, 241, 0.2); }
+input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; cursor: pointer; background: #1e1e2e; border-radius: 2px; }
+/* Select Dropdown */
+.custom-select { appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.5)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1em; }
+/* Animations */
+.animate-on-scroll { opacity: 0; transform: translateY(20px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+.animate-on-scroll.animate { opacity: 1; transform: translateY(0); }
+.pulse-circle { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4); animation: pulse-green 2s infinite; }
+@keyframes pulse-green { 0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4); } 70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(74, 222, 128, 0); } 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); } }
+/* Audio Wave */
+.audio-bar { animation: audio-wave 1s ease-in-out infinite; transform-origin: bottom; }
+@keyframes audio-wave { 0%, 100% { height: 20%; } 50% { height: 80%; } }
+/* Marquee */
+.marquee-mask { mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); }
+.marquee-content { animation: scroll 40s linear infinite; }
+@keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+html { scroll-behavior: smooth; }
+.glass-card { background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%); border: 1px solid rgba(255, 255, 255, 0.08); }
+.glass-card:hover { border-color: rgba(255,255,255,0.15); background: rgba(255,255,255,0.04); }
+.glow-card-blue { background: linear-gradient(180deg, rgba(59,130,246,0.05) 0%, rgba(0,0,0,0.5) 100%); border: 1px solid rgba(59,130,246,0.3); box-shadow: 0 0 30px rgba(59,130,246,0.05); }
+.glow-card-indigo { background: linear-gradient(180deg, rgba(99,102,241,0.08) 0%, rgba(0,0,0,0.5) 100%); border: 1px solid rgba(99,102,241,0.4); box-shadow: 0 0 40px rgba(99,102,241,0.08); }
+</style></head>
+
+<body id="home" class="antialiased text-slate-100 bg-[#000000] selection:bg-indigo-500/30 selection:text-indigo-200">
+
+    <!-- Unicorn Studio Background -->
+    <div class="fixed top-0 left-0 right-0 bottom-0 unicorn-stack unicorn-mask pointer-events-none z-[-10]">
+        <div data-us-project="VaqT3bxlc2sugR8faApF" class="absolute inset-0 w-full h-full opacity-60"></div>
+    </div>
+    <script>
+        (function(){if(!window.UnicornStudio){window.UnicornStudio={isInitialized:!1};var i=document.createElement("script");i.src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.29/dist/unicornStudio.umd.js",i.async=!0,i.onload=function(){window.UnicornStudio.isInitialized||(UnicornStudio.init(),window.UnicornStudio.isInitialized=!0)},(document.head||document.body).appendChild(i)}})();
+    </script>
+
+    <!-- Header -->
+    <header class="fixed top-6 left-0 right-0 z-50 px-6">
+        <div class="max-w-5xl mx-auto">
+            <div class="glass-card rounded-full px-4 py-2.5 flex items-center justify-between backdrop-blur-xl bg-black/50">
+    <a href="#home" class="flex items-center gap-2.5 pl-2 group">
+        <div class="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-white border border-white/5 group-hover:scale-105 transition-transform duration-300">
+            <iconify-icon icon="solar:infinity-bold" class="text-lg"></iconify-icon>
+        </div>
+        <span class="text-sm font-semibold text-white/90 tracking-tight cursor-pointer" onclick="window.location.href='index.html'" role="button">SEAINT</span>
+    </a>
+
+    <nav class="hidden md:flex gap-1 bg-white/5 border-white/5 border rounded-full pt-1 pr-1 pb-1 pl-1 gap-x-1 gap-y-1 items-center">
+        <a href="sales-rep.html" class="hover:text-white hover:bg-white/10 transition-all text-xs font-medium text-white/60 rounded-full pt-1.5 pr-4 pb-1.5 pl-4">Sales
+            Representative</a>
+        <a href="done-for-you.html" class="hover:text-white hover:bg-white/10 transition-all text-xs font-medium text-white/60 rounded-full pt-1.5 pr-4 pb-1.5 pl-4">Features</a>
+        <a href="#pricing" class="px-4 py-1.5 text-xs font-medium text-white/60 hover:text-white hover:bg-white/10 rounded-full transition-all">Pricing</a>
+    </nav>
+
+    <div class="relative flex items-center gap-3">
+        <a href="#consultation" class="hidden sm:flex items-center gap-1.5 hover:bg-gray-200 transition-colors text-xs font-medium text-black tracking-tight bg-white rounded-full pt-1.5 pr-4 pb-1.5 pl-4">
+            Book Consultation
+            <iconify-icon icon="solar:calendar-linear"></iconify-icon>
+        </a>
+    </div>
+</div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="overflow-hidden pt-40 pr-6 pb-20 pl-6 relative">
+        <div class="max-w-7xl mr-auto ml-auto">
+            
+            <!-- Floating Chips -->
+            <div class="absolute inset-0 pointer-events-none select-none z-0">
+                <div class="float-chip-1 absolute left-[15%] top-40 hidden lg:block">
+                    <div class="flex items-center gap-2 rounded-full bg-black/60 backdrop-blur-md px-4 py-2 text-[10px] font-mono border border-white/10 text-emerald-400">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                        Voice Agent: Connected
+                    </div>
+                </div>
+                <div class="float-chip-2 absolute right-[15%] top-48 hidden lg:block">
+                    <div class="flex items-center gap-2 rounded-full bg-black/60 backdrop-blur-md px-4 py-2 text-[10px] font-mono border border-white/10 text-indigo-400">
+                        <iconify-icon icon="solar:check-circle-linear"></iconify-icon>
+                        Lead Qualified: $15k
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="animate-enter text-center max-w-4xl z-10 mr-auto mb-20 ml-auto relative">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-indigo-500/20 bg-indigo-500/10 text-[11px] uppercase tracking-wider text-indigo-300 mb-8 hover:bg-indigo-500/20 transition-colors cursor-default">
+                    <span class="flex h-1.5 w-1.5 relative">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-indigo-500"></span>
+                    </span>
+                    Now with GPT-4o Voice
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-medium tracking-tight text-white mb-8 leading-[0.95]">
+                    Scale your business <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-white/40">while you sleep.</span>
+                </h1>
+                
+                <p class="text-lg md:text-xl text-white/50 max-w-2xl mx-auto mb-10 leading-relaxed font-light">
+                    Hire the AI employee that never clocks out. From handling inbound calls to executing complex workflows—SEAINT is your 24/7 autonomous workforce.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <div class="btn-wrapper">
+                        <div class="dot top left"></div>
+                        <div class="dot top right"></div>
+                        <div class="dot bottom left"></div>
+                        <div class="dot bottom right"></div>
+                        <a href="#consultation" class="btn">
+                            Book Consultation Now
+                            <iconify-icon icon="solar:arrow-right-linear" class="ml-2 text-lg"></iconify-icon>
+                        </a>
+                    </div>
+                    <a href="#demo" class="px-6 py-3 text-sm font-medium text-white/60 hover:text-white transition-colors flex items-center gap-2">
+                        <iconify-icon icon="solar:play-circle-linear" class="text-lg"></iconify-icon>
+                        Watch Demo
+                    </a>
+                </div>
+            </div>
+
+            <!-- Dashboard Preview -->
+            <div class="relative max-w-5xl mx-auto animate-enter-delay-1">
+                <div class="absolute -inset-1 bg-gradient-to-b from-indigo-500/20 to-transparent rounded-2xl blur-xl opacity-30"></div>
+                <div class="glass-card rounded-xl border-white/10 bg-[#0A0A0A] overflow-hidden shadow-2xl ring-1 ring-white/10">
+                    <!-- Dashboard Header -->
+                    <div class="h-12 border-b border-white/5 bg-white/[0.02] flex items-center justify-between px-4">
+                        <div class="flex items-center gap-2">
+                            <div class="flex gap-1.5">
+                                <div class="w-2.5 h-2.5 rounded-full bg-white/10"></div>
+                                <div class="w-2.5 h-2.5 rounded-full bg-white/10"></div>
+                                <div class="w-2.5 h-2.5 rounded-full bg-white/10"></div>
+                            </div>
+                        </div>
+                        <div class="text-[10px] font-mono text-white/30 uppercase tracking-widest">Live Activity • Workspace 01</div>
+                        <div class="flex items-center gap-2">
+                            <span class="relative flex h-2 w-2">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                            </span>
+                            <span class="text-xs text-white/50">Online</span>
+                        </div>
+                    </div>
+
+                    <!-- Dashboard Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/5 bg-[#050505] min-h-[350px]">
+                        
+                        <!-- Col 1: Active Call -->
+                        <div class="p-6">
+                            <div class="flex items-center justify-between mb-6">
+                                <h3 class="text-xs font-semibold text-white/40 uppercase tracking-widest">Active Voice</h3>
+                                <iconify-icon icon="solar:phone-calling-linear" class="text-white/40"></iconify-icon>
+                            </div>
+                            <div class="bg-indigo-500/5 border border-indigo-500/20 rounded-lg p-5 relative overflow-hidden group">
+                                <div class="flex justify-between items-start mb-6">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400">
+                                            <iconify-icon icon="solar:user-linear" class="text-xl"></iconify-icon>
+                                        </div>
+                                        <div class="">
+                                            <div class="text-sm text-white font-medium">Inbound Lead</div>
+                                            <div class="text-[10px] text-indigo-300/60 font-mono">+1 (415) 555-0123</div>
+                                        </div>
+                                    </div>
+                                    <div class="px-2 py-0.5 rounded text-[10px] bg-green-500/10 text-green-400 border border-green-500/20">Active</div>
+                                </div>
+                                <div class="flex items-end justify-center gap-1 h-12 w-full mb-2">
+                                    <div class="w-1 bg-indigo-400 rounded-full audio-bar" style="animation-delay: 0s"></div>
+                                    <div class="w-1 bg-indigo-400 rounded-full audio-bar" style="animation-delay: 0.2s"></div>
+                                    <div class="w-1 bg-indigo-400 rounded-full audio-bar" style="animation-delay: 0.1s"></div>
+                                    <div class="w-1 bg-indigo-400 rounded-full audio-bar" style="animation-delay: 0.4s"></div>
+                                    <div class="w-1 bg-indigo-400 rounded-full audio-bar" style="animation-delay: 0.3s"></div>
+                                    <div class="w-1 bg-indigo-400 rounded-full audio-bar" style="animation-delay: 0.2s"></div>
+                                </div>
+                                <p class="text-[10px] text-indigo-300/50 font-mono text-center">Processing natural language...</p>
+                            </div>
+                        </div>
+
+                        <!-- Col 2: Task Log -->
+                        <div class="p-6 relative">
+                            <div class="flex items-center justify-between mb-6">
+                                <h3 class="text-xs font-semibold text-white/40 uppercase tracking-widest">Execution Log</h3>
+                                <iconify-icon icon="solar:list-check-linear" class="text-white/40"></iconify-icon>
+                            </div>
+                            <div class="space-y-4 relative z-10">
+                                <div class="flex gap-3 items-start">
+                                    <div class="mt-0.5 text-blue-400 bg-blue-400/10 p-1 rounded"><iconify-icon icon="solar:calendar-add-linear"></iconify-icon></div>
+                                    <div>
+                                        <div class="text-xs text-white">Meeting Scheduled</div>
+                                        <div class="text-[10px] text-white/40 mt-0.5">Google Calendar • 2m ago</div>
+                                    </div>
+                                </div>
+                                <div class="flex gap-3 items-start">
+                                    <div class="mt-0.5 text-purple-400 bg-purple-400/10 p-1 rounded"><iconify-icon icon="solar:letter-linear"></iconify-icon></div>
+                                    <div class="">
+                                        <div class="text-xs text-white">Follow-up Sent</div>
+                                        <div class="text-[10px] text-white/40 mt-0.5">Gmail API • 5m ago</div>
+                                    </div>
+                                </div>
+                                <div class="flex gap-3 items-start opacity-50">
+                                    <div class="mt-0.5 text-emerald-400 bg-emerald-400/10 p-1 rounded"><iconify-icon icon="solar:database-linear"></iconify-icon></div>
+                                    <div>
+                                        <div class="text-xs text-white">CRM Updated</div>
+                                        <div class="text-[10px] text-white/40 mt-0.5">HubSpot • 12m ago</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#050505] to-transparent z-20 pointer-events-none"></div>
+                        </div>
+
+                        <!-- Col 3: Stats -->
+                        <div class="p-6">
+                            <div class="flex items-center justify-between mb-6">
+                                <h3 class="text-xs font-semibold text-white/40 uppercase tracking-widest">Performance</h3>
+                                <iconify-icon icon="solar:chart-2-linear" class="text-white/40"></iconify-icon>
+                            </div>
+                            <div class="glass-card rounded-lg p-4 mb-4">
+                                <div class="text-[10px] text-white/40 mb-1">Conversion Rate</div>
+                                <div class="flex items-end gap-2">
+                                    <div class="text-2xl font-semibold text-white">18.4%</div>
+                                    <div class="text-[10px] text-emerald-400 mb-1 flex items-center">
+                                        <iconify-icon icon="solar:arrow-right-up-linear"></iconify-icon> 2.1%
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="glass-card rounded-lg p-4">
+                                <div class="text-[10px] text-white/40 mb-1">Calls Handled</div>
+                                <div class="flex items-end gap-2">
+                                    <div class="text-2xl font-semibold text-white">1,204</div>
+                                    <div class="w-full h-1.5 bg-white/10 rounded-full mb-2 ml-2 relative overflow-hidden">
+                                        <div class="absolute inset-0 bg-white/80 w-[70%] rounded-full"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trusted By Ticker -->
+    <section class="border-y border-white/5 bg-white/[0.02] py-8 overflow-hidden relative">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <p class="text-center text-xs font-medium text-white/30 uppercase tracking-widest mb-6">Trusted by forward-thinking teams</p>
+            <div class="marquee-mask relative overflow-hidden w-full">
+                <div class="marquee-content flex gap-16 w-max">
+                    <!-- Logos (Repeated for effect) -->
+                    <div class="flex gap-16 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+                        <iconify-icon icon="simple-icons:stripe" class="text-3xl"></iconify-icon>
+                        <iconify-icon icon="simple-icons:vercel" class="text-3xl"></iconify-icon>
+                        <iconify-icon icon="simple-icons:linear" class="text-3xl"></iconify-icon>
+                        <iconify-icon icon="simple-icons:notion" class="text-3xl"></iconify-icon>
+                        <iconify-icon icon="simple-icons:airtable" class="text-3xl"></iconify-icon>
+                        <iconify-icon icon="simple-icons:intercom" class="text-3xl"></iconify-icon>
+                        <iconify-icon icon="simple-icons:shopify" class="text-3xl"></iconify-icon>
+                        <!-- Repeat -->
+                         <iconify-icon icon="simple-icons:stripe" class="text-3xl"></iconify-icon>
+                        <iconify-icon icon="simple-icons:vercel" class="text-3xl"></iconify-icon>
+                        <iconify-icon icon="simple-icons:linear" class="text-3xl"></iconify-icon>
+                        <iconify-icon icon="simple-icons:notion" class="text-3xl"></iconify-icon>
+                        <iconify-icon icon="simple-icons:airtable" class="text-3xl"></iconify-icon>
+                        <iconify-icon icon="simple-icons:intercom" class="text-3xl"></iconify-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROI Calculator -->
+    <section class="scroll-mt-24 pt-32 pb-32 relative" id="calculator">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+                <div class="animate-on-scroll">
+                    <div class="inline-flex items-center gap-2 rounded-full border border-red-500/20 bg-red-500/5 px-3 py-1 text-xs font-medium text-red-400 mb-6">
+                        <iconify-icon icon="solar:danger-triangle-linear"></iconify-icon>
+                        Missed Opportunity
+                    </div>
+                    <h2 class="text-3xl md:text-5xl font-medium tracking-tight text-white mb-6">
+                        Hidden costs of <br>
+                        <span class="text-white/40">human limitations.</span>
+                    </h2>
+                    <p class="text-lg text-white/50 mb-12 max-w-md">
+                        Businesses lose up to 70% of potential leads simply by not answering the phone after 5 PM. Calculate your potential revenue loss below.
+                    </p>
+
+                    <div class="glass-card bg-[#0A0A0A] rounded-2xl pt-8 pr-8 pb-8 pl-8 space-y-10">
+                        <!-- Input Group -->
+                        <div class="">
+                            <label class="block text-[10px] font-semibold text-white/40 uppercase tracking-widest mb-3">Industry Model</label>
+                            <div class="relative group">
+                                <iconify-icon icon="solar:buildings-linear" class="absolute left-3 top-3.5 text-white/40 pointer-events-none z-10 group-hover:text-white transition-colors"></iconify-icon>
+                                <select class="custom-select focus:outline-none focus:border-indigo-500 transition-colors cursor-pointer hover:bg-white/10 text-sm text-slate-600 bg-gray-950/5 w-full border-white/10 border rounded-lg pl-10" id="industryInput">
+                                    <option value="real_estate" class="">Real Estate</option>
+                                    <option value="medical">Healthcare / Medical</option>
+                                    <option value="construction">Construction &amp; Trades</option>
+                                    <option value="legal">Legal Services</option>
+                                    <option value="home_services" class="">Home Services</option>
+                                    <option value="tech">SaaS / Technology</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Range Group: Leads -->
+                        <div class="">
+                            <div class="flex justify-between mb-4">
+                                <label class="text-[10px] font-semibold text-white/40 uppercase tracking-widest">Monthly Inbound Leads</label>
+                                <span class="text-sm font-mono text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20" id="leadsValue">150</span>
+                            </div>
+                            <input type="range" min="10" max="1000" step="10" value="150" id="leadsRange" class="slider" style="background: linear-gradient(to right, rgb(99, 102, 241) 14.1414%, rgb(30, 30, 46) 14.1414%);">
+                            <div class="flex justify-between text-[10px] text-white/20 mt-2 font-mono">
+                                <span>10</span>
+                                <span>500</span>
+                                <span>1000+</span>
+                            </div>
+                        </div>
+
+                        <!-- Range Group: Staff -->
+                        <div class="">
+                            <div class="flex justify-between mb-4">
+                                <div>
+                                    <label class="text-[10px] font-semibold text-white/40 uppercase tracking-widest block">Human Receptionists</label>
+                                    <span class="text-[10px] text-white/30">Standard 40h/week shift</span>
+                                </div>
+                                <span class="text-sm font-mono text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20" id="staffValue">1 People</span>
+                            </div>
+                            <input type="range" min="0" max="10" step="1" value="1" id="staffRange" class="slider" style="background: linear-gradient(to right, rgb(99, 102, 241) 10%, rgb(30, 30, 46) 10%);">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results Card -->
+                <div class="animate-on-scroll relative mt-12 lg:mt-0">
+                    <!-- Glow -->
+                    <div class="absolute -inset-1 bg-gradient-to-tr from-red-600/30 via-orange-500/20 to-indigo-600/30 rounded-3xl opacity-40 blur-3xl"></div>
+                    
+                    <div class="glass-card rounded-2xl p-8 md:p-10 relative bg-[#050505] border border-white/10">
+                        <div class="absolute top-0 right-0 p-6 opacity-20">
+                            <iconify-icon icon="solar:graph-down-bold" class="text-9xl text-white"></iconify-icon>
+                        </div>
+
+                        <div class="flex flex-col gap-8 relative z-10">
+                            <h3 class="text-sm font-medium text-white/70">Projected Monthly Loss</h3>
+                            
+                            <!-- Metric 1: Revenue -->
+                            <div class="pb-8 border-b border-white/5">
+                                <div class="text-6xl md:text-7xl font-semibold text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-white/50 tracking-tighter" id="lostRevenueResult">$22,500</div>
+                                <div class="mt-4 flex gap-2 items-center">
+                                    <div class="p-1 rounded bg-red-500/20 text-red-400">
+                                        <iconify-icon icon="solar:arrow-right-down-linear"></iconify-icon>
+                                    </div>
+                                    <span class="text-sm text-red-400/80">Lost recurring revenue</span>
+                                </div>
+                            </div>
+
+                            <!-- Detailed Stats -->
+                            <div class="grid grid-cols-2 gap-6">
+                                <div class="">
+                                    <div class="text-[10px] uppercase tracking-widest text-white/40 mb-1">Unanswered Calls</div>
+                                    <div class="text-2xl font-medium text-white" id="missedLeadsResult">60</div>
+                                </div>
+                                <div>
+                                    <div class="text-[10px] uppercase tracking-widest text-white/40 mb-1">Human Coverage</div>
+                                    <div class="text-2xl font-medium text-white" id="coverageDisplay">60%</div>
+                                </div>
+                            </div>
+
+                            <!-- Visualization -->
+                            <div class="bg-white/5 rounded-xl p-5 border border-white/5">
+                                <div class="flex justify-between items-end mb-3">
+                                    <div>
+                                        <div class="text-[10px] uppercase tracking-wider text-white/60 mb-1">24h Availability Gap</div>
+                                        <div class="text-xs text-white/30">AI closes the red gap</div>
+                                    </div>
+                                    <span id="gapPercent" class="text-red-400 font-mono text-xs">40% Uncovered</span>
+                                </div>
+                                <div class="h-3 w-full bg-[#111] rounded-full overflow-hidden flex shadow-inner">
+                                    <!-- Green part (Covered) -->
+                                    <div id="coverageBar" class="h-full bg-emerald-500/80 shadow-[0_0_10px_rgba(16,185,129,0.5)] transition-all duration-700" style="width: 60%; box-shadow: rgba(16, 185, 129, 0.5) 0px 0px 10px;"></div>
+                                    <!-- Red part (Missed) -->
+                                    <div class="h-full flex-1 bg-red-500/20 relative overflow-hidden">
+                                        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPC9zdmc+')] opacity-30"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Grid -->
+    <section id="features" class="py-32 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-20">
+                <h2 class="text-3xl md:text-4xl font-medium text-white mb-6">Comprehensive capabilities.</h2>
+                <p class="text-lg text-white/50 max-w-xl">Don't just automate tasks—hire a complete digital workforce.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Feature 1 -->
+                <div class="glass-card rounded-2xl p-8 hover:transform hover:-translate-y-1 transition-all duration-300 group">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 mb-6 group-hover:bg-indigo-500/20 transition-colors">
+                        <iconify-icon icon="solar:phone-calling-linear" class="text-2xl"></iconify-icon>
+                    </div>
+                    <h3 class="text-lg font-medium text-white mb-3">Inbound Receptionist</h3>
+                    <p class="text-sm text-white/50 leading-relaxed">
+                        Answers calls instantly, qualifies prospects, and books meetings directly to your calendar 24/7.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="glass-card rounded-2xl p-8 hover:transform hover:-translate-y-1 transition-all duration-300 group">
+                    <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 mb-6 group-hover:bg-blue-500/20 transition-colors">
+                        <iconify-icon icon="solar:outgoing-call-linear" class="text-2xl"></iconify-icon>
+                    </div>
+                    <h3 class="text-lg font-medium text-white mb-3">Outbound Sales</h3>
+                    <p class="text-sm text-white/50 leading-relaxed">
+                        Scale your outreach. Reactivate cold leads and follow up on inquiries with human-like voice AI.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="glass-card rounded-2xl p-8 hover:transform hover:-translate-y-1 transition-all duration-300 group">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 mb-6 group-hover:bg-emerald-500/20 transition-colors">
+                        <iconify-icon icon="solar:bolt-linear" class="text-2xl"></iconify-icon>
+                    </div>
+                    <h3 class="text-lg font-medium text-white mb-3">Multi-Modal Action</h3>
+                    <p class="text-sm text-white/50 leading-relaxed">
+                        Triggers workflows across your stack: Sends SMS, updates CRM, and dispatches emails.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="py-32 border-t border-white/5 relative bg-black">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 class="text-3xl md:text-4xl font-medium text-white mb-4">Transparent Pricing</h2>
+                <p class="text-white/50">Replace expensive human overhead with intelligent automation.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 relative">
+                
+                <!-- Tier 1: Pilot (Entry) -->
+                <div class="glass-card rounded-2xl p-6 flex flex-col hover:border-white/20 transition-all duration-300 group">
+                    <div class="mb-4">
+                        <h3 class="text-sm font-semibold text-white/80 uppercase tracking-widest">Pilot</h3>
+                        <p class="text-xs text-white/40 mt-1">Perfect for testing the waters.</p>
+                    </div>
+                    <div class="mb-6">
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-3xl font-semibold text-white tracking-tight">$99</span>
+                            <span class="text-xs text-white/40">/mo</span>
+                        </div>
+                    </div>
+                    <ul class="space-y-3 mb-8 flex-1">
+                        <li class="flex gap-3 text-xs text-white/70">
+                            <iconify-icon icon="solar:check-circle-linear" class="text-white/40 text-sm"></iconify-icon>
+                            100 Voice Minutes
+                        </li>
+                        <li class="flex gap-3 text-xs text-white/70">
+                            <iconify-icon icon="solar:check-circle-linear" class="text-white/40 text-sm"></iconify-icon>
+                            Standard Voice Model
+                        </li>
+                        <li class="flex gap-3 text-xs text-white/70">
+                            <iconify-icon icon="solar:check-circle-linear" class="text-white/40 text-sm"></iconify-icon>
+                            Email Summaries
+                        </li>
+                    </ul>
+                    <a href="#" class="w-full py-2.5 rounded-lg border border-white/10 bg-white/5 text-xs font-medium text-white hover:bg-white/10 transition-colors text-center">Start Pilot</a>
+                </div>
+
+                <!-- Tier 2: Growth (Best Value) -->
+                <div class="glow-card-blue rounded-2xl p-6 flex flex-col relative transform hover:-translate-y-1 transition-all duration-300">
+                    <div class="absolute -top-3 left-6 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-500/30 text-[10px] font-bold text-blue-300 uppercase tracking-wider backdrop-blur-md">Best Value</div>
+                    <div class="mb-4 mt-2">
+                        <h3 class="text-sm font-semibold text-blue-100 uppercase tracking-widest">Growth</h3>
+                        <p class="text-xs text-blue-200/50 mt-1">For expanding local businesses.</p>
+                    </div>
+                    <div class="mb-6">
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-3xl font-semibold text-white tracking-tight">$499</span>
+                            <span class="text-xs text-white/40">/mo</span>
+                        </div>
+                    </div>
+                    <ul class="space-y-3 mb-8 flex-1">
+                        <li class="flex gap-3 text-xs text-white">
+                            <iconify-icon icon="solar:check-circle-bold" class="text-blue-400 text-sm"></iconify-icon>
+                            <span class="font-medium">600 Voice Minutes</span>
+                        </li>
+                        <li class="flex gap-3 text-xs text-white/80">
+                            <iconify-icon icon="solar:check-circle-linear" class="text-blue-400 text-sm"></iconify-icon>
+                            CRM Integration
+                        </li>
+                        <li class="flex gap-3 text-xs text-white/80">
+                            <iconify-icon icon="solar:check-circle-linear" class="text-blue-400 text-sm"></iconify-icon>
+                            SMS Follow-ups
+                        </li>
+                        <li class="flex gap-3 text-xs text-white/80">
+                            <iconify-icon icon="solar:check-circle-linear" class="text-blue-400 text-sm"></iconify-icon>
+                            Calendar Booking
+                        </li>
+                    </ul>
+                    <button class="w-full py-2.5 rounded-lg bg-blue-600 text-xs font-medium text-white hover:bg-blue-500 transition-colors shadow-lg shadow-blue-900/20">Get Started</button>
+                </div>
+
+                <!-- Tier 3: Business (High Volume) -->
+                <div class="glow-card-indigo rounded-2xl p-6 flex flex-col relative transform hover:-translate-y-1 transition-all duration-300 z-10">
+                    <div class="absolute -top-3 left-6 px-3 py-1 rounded-full bg-indigo-500 text-[10px] font-bold text-white uppercase tracking-wider shadow-lg shadow-indigo-500/40">Most Popular</div>
+                    <div class="mb-4 mt-2">
+                        <h3 class="text-sm font-semibold text-indigo-100 uppercase tracking-widest">Business</h3>
+                        <p class="text-xs text-indigo-200/50 mt-1">Serious volume automation.</p>
+                    </div>
+                    <div class="mb-6">
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-3xl font-semibold text-white tracking-tight">$999</span>
+                            <span class="text-xs text-white/40">/mo</span>
+                        </div>
+                    </div>
+                    <ul class="space-y-3 mb-8 flex-1">
+                        <li class="flex gap-3 text-xs text-white">
+                            <iconify-icon icon="solar:check-circle-bold" class="text-indigo-400 text-sm"></iconify-icon>
+                            <span class="font-medium">1,500 Voice Minutes</span>
+                        </li>
+                        <li class="flex gap-3 text-xs text-white/90">
+                            <iconify-icon icon="solar:check-circle-bold" class="text-indigo-400 text-sm"></iconify-icon>
+                            Full Outbound Campaigns
+                        </li>
+                        <li class="flex gap-3 text-xs text-white/90">
+                            <iconify-icon icon="solar:check-circle-bold" class="text-indigo-400 text-sm"></iconify-icon>
+                            Dedicated Phone Number
+                        </li>
+                        <li class="flex gap-3 text-xs text-white/90">
+                            <iconify-icon icon="solar:check-circle-bold" class="text-indigo-400 text-sm"></iconify-icon>
+                            Advanced Analytics
+                        </li>
+                    </ul>
+                    <button class="w-full py-2.5 rounded-lg bg-indigo-600 text-xs font-medium text-white hover:bg-indigo-500 transition-colors shadow-lg shadow-indigo-900/20">Scale Now</button>
+                </div>
+
+                <!-- Tier 4: Enterprise -->
+                <div class="glass-card rounded-2xl p-6 flex flex-col hover:border-white/20 transition-all duration-300">
+                    <div class="mb-4">
+                        <h3 class="text-sm font-semibold text-white/80 uppercase tracking-widest">Enterprise</h3>
+                        <p class="text-xs text-white/40 mt-1">For custom workflows.</p>
+                    </div>
+                    <div class="mb-6">
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-3xl font-semibold text-white tracking-tight">Custom</span>
+                        </div>
+                    </div>
+                    <ul class="space-y-3 mb-8 flex-1">
+                        <li class="flex gap-3 text-xs text-white/70">
+                            <iconify-icon icon="solar:check-circle-linear" class="text-white/40 text-sm"></iconify-icon>
+                            Unlimited Volume
+                        </li>
+                        <li class="flex gap-3 text-xs text-white/70">
+                            <iconify-icon icon="solar:check-circle-linear" class="text-white/40 text-sm"></iconify-icon>
+                            White Glove Onboarding
+                        </li>
+                        <li class="flex gap-3 text-xs text-white/70">
+                            <iconify-icon icon="solar:check-circle-linear" class="text-white/40 text-sm"></iconify-icon>
+                            API Access
+                        </li>
+                        <li class="flex gap-3 text-xs text-white/70">
+                            <iconify-icon icon="solar:check-circle-linear" class="text-white/40 text-sm"></iconify-icon>
+                            SLA Support
+                        </li>
+                    </ul>
+                    <a href="#" class="w-full py-2.5 rounded-lg border border-white/10 bg-white/5 text-xs font-medium text-white hover:bg-white/10 transition-colors text-center">Contact Sales</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/5 bg-black py-16">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="flex items-center gap-3">
+                <div class="w-6 h-6 rounded bg-white/10 text-white flex items-center justify-center text-[10px]">
+                    <iconify-icon icon="solar:infinity-bold"></iconify-icon>
+                </div>
+                <span class="text-xs text-white/40 font-mono">© 2024 SEAINT INC.</span>
+            </div>
+            <div class="flex gap-8">
+                <a href="#" class="text-xs text-white/40 hover:text-white transition-colors">Privacy</a>
+                <a href="#" class="text-xs text-white/40 hover:text-white transition-colors">Terms</a>
+                <a href="#" class="text-xs text-white/40 hover:text-white transition-colors">Twitter</a>
+                <a href="mailto:hello@seaint.com" class="text-xs text-white/40 hover:text-white transition-colors">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Logic Script -->
+    <script>
+        // Scroll Animation Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.animate-on-scroll').forEach((el) => observer.observe(el));
+
+        // Slider Fill Logic
+        function updateSliderFill(slider) {
+            const val = (slider.value - slider.min) / (slider.max - slider.min) * 100;
+            slider.style.background = `linear-gradient(to right, #6366f1 ${val}%, #1e1e2e ${val}%)`;
+        }
+
+        document.querySelectorAll('.slider').forEach(slider => {
+            updateSliderFill(slider);
+            slider.addEventListener('input', (e) => updateSliderFill(e.target));
+        });
+
+        // Enhanced Calculator Logic
+        const industryInput = document.getElementById('industryInput');
+        const leadsRange = document.getElementById('leadsRange');
+        const staffRange = document.getElementById('staffRange');
+        
+        // Benchmarks (Deal Size, Conv Rate, Average Lead Quality)
+        const benchmarks = {
+            real_estate: { deal: 15000, conv: 0.025 },
+            medical: { deal: 500, conv: 0.15 }, // Recurring patient value low, vol high
+            construction: { deal: 8000, conv: 0.08 }, // High ticket, moderate volume
+            legal: { deal: 3500, conv: 0.05 },
+            home_services: { deal: 450, conv: 0.25 },
+            tech: { deal: 3000, conv: 0.08 }
+        };
+
+        function calculate() {
+            const industry = industryInput.value;
+            const leads = parseInt(leadsRange.value);
+            const staff = parseInt(staffRange.value);
+            
+            // Logic Constants
+            const WORK_HOURS_WEEK = 40;
+            const TOTAL_HOURS_WEEK = 168;
+            const HUMAN_EFFICIENCY = 0.8; // Humans aren't 100% efficient
+            
+            // 1. Time Coverage Calculation
+            // Even if you have 10 staff, if they all work 9-5, you only cover 24% of the week.
+            // We assume standard business hours unless staff count implies shifts (e.g. > 3).
+            // Simplified: Base coverage is 24% (40/168). 
+            // If Staff > 2, we assume slight staggering, adding marginal coverage.
+            let timeCoverageRatio = (WORK_HOURS_WEEK / TOTAL_HOURS_WEEK); 
+            if (staff > 2) timeCoverageRatio += 0.05; // minor overlap benefit
+            if (staff > 5) timeCoverageRatio += 0.10; // maybe a late shift
+            if (staff === 0) timeCoverageRatio = 0;
+            
+            // Cap at reasonable max for normal businesses (e.g. 50% without AI)
+            timeCoverageRatio = Math.min(timeCoverageRatio, 0.5);
+
+            // 2. Capacity Calculation
+            // Can the staff actually handle the leads during open hours?
+            // Assume 1 staff can handle ~300 leads/mo if focused purely on that.
+            const staffCapacity = staff * 250; 
+            
+            // 3. Total Covered Leads
+            // Leads are lost if: (a) they call after hours, OR (b) during hours but staff is busy.
+            // We assume leads come in uniformly for simplicity (or slightly weighted to day).
+            // Let's say 60% come during day, 40% night/weekend.
+            const dayLeads = leads * 0.6;
+            const nightLeads = leads * 0.4;
+            
+            // Day logic: capped by capacity
+            let handledDayLeads = 0;
+            if (staff > 0) {
+                handledDayLeads = Math.min(dayLeads, staffCapacity);
+            }
+            
+            // Night logic: 0 handled by humans
+            const handledNightLeads = 0;
+            
+            const totalHandled = handledDayLeads + handledNightLeads;
+            const missedLeads = leads - totalHandled;
+            
+            // Revenue Calculation
+            const lostRevenue = missedLeads * benchmarks[industry].conv * benchmarks[industry].deal;
+            
+            // Coverage Percentage for UI
+            const coveragePct = leads > 0 ? Math.round((totalHandled / leads) * 100) : 0;
+            const gapPct = 100 - coveragePct;
+
+            // DOM Updates
+            document.getElementById('leadsValue').textContent = leads;
+            document.getElementById('staffValue').textContent = staff + " People";
+            
+            document.getElementById('missedLeadsResult').textContent = Math.round(missedLeads);
+            document.getElementById('lostRevenueResult').textContent = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumSignificantDigits: 3 }).format(lostRevenue);
+            
+            document.getElementById('coverageDisplay').textContent = coveragePct + "%";
+            document.getElementById('gapPercent').textContent = gapPct + "% Uncovered";
+            
+            // Bar Animation
+            const bar = document.getElementById('coverageBar');
+            bar.style.width = coveragePct + '%';
+            
+            // Dynamic Coloring based on severity
+            if (coveragePct < 30) {
+                bar.classList.remove('bg-emerald-500/80', 'bg-yellow-500/80');
+                bar.classList.add('bg-red-500/80');
+                bar.style.boxShadow = '0 0 10px rgba(239,68,68,0.5)';
+            } else if (coveragePct < 60) {
+                bar.classList.remove('bg-emerald-500/80', 'bg-red-500/80');
+                bar.classList.add('bg-yellow-500/80');
+                bar.style.boxShadow = '0 0 10px rgba(234,179,8,0.5)';
+            } else {
+                bar.classList.remove('bg-red-500/80', 'bg-yellow-500/80');
+                bar.classList.add('bg-emerald-500/80');
+                bar.style.boxShadow = '0 0 10px rgba(16,185,129,0.5)';
+            }
+        }
+
+        [industryInput, leadsRange, staffRange].forEach(el => el.addEventListener('input', calculate));
+        // Init
+        setTimeout(calculate, 100); 
+    </script>
+
+</body></html>

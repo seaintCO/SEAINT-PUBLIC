@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEAINT — Career &amp; Growth Accelerator</title>
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Geist:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<!-- Scripts -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+<!-- Custom Styles -->
+<style>
+/* Base settings */
+body { font-family: 'Inter', sans-serif; }
+.font-mono { font-family: 'JetBrains Mono', monospace; }
+/* Floating animations */
+@keyframes float-cursor { 0%,100%{transform:translate(0,0)} 50%{transform:translate(4px,-6px)} }
+@keyframes float-chip-1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-8px,-12px)} }
+@keyframes float-chip-2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(10px,8px)} }
+@keyframes float-chip-3 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-6px,10px)} }
+.float-cursor { animation: float-cursor 3s ease-in-out infinite; }
+.float-chip-1 { animation: float-chip-1 4s ease-in-out infinite; }
+.float-chip-2 { animation: float-chip-2 4.5s ease-in-out infinite; }
+.float-chip-3 { animation: float-chip-3 4.2s ease-in-out infinite; }
+/* Fade Slide In */
+@keyframes fadeSlideIn {
+0% { opacity: 0; transform: translateY(30px); filter: blur(8px); }
+100% { opacity: 1; transform: translateY(0); filter: blur(0px); }
+}
+.animate-enter { animation: fadeSlideIn 0.8s ease-out 0s both; }
+.animate-enter-delay-1 { animation: fadeSlideIn 0.8s ease-out 0.1s both; }
+.animate-enter-delay-2 { animation: fadeSlideIn 0.8s ease-out 0.2s both; }
+/* Unicorn Mask */
+.unicorn-mask {
+mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, black 12%, black 88%, rgba(0,0,0,0) 100%);
+-webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, black 12%, black 88%, rgba(0,0,0,0) 100%);
+}
+/* Border Gradient Utility */
+[style*="--border-gradient"]::before {
+content: "";
+position: absolute;
+inset: 0;
+padding: 1px;
+border-radius: var(--border-radius-before, inherit);
+-webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+-webkit-mask-composite: xor;
+mask-composite: exclude;
+background: var(--border-gradient);
+pointer-events: none;
+}
+/* Start Creating Button CSS */
+.btn-wrapper::after {
+content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+border-radius: inherit; pointer-events: none; background-color: #0000;
+background-image: repeating-linear-gradient(45deg, var(--grid-color) 0 1px, transparent 2px 5px);
+opacity: 0; z-index: -1;
+}
+.btn-wrapper:has(.btn:hover)::after { animation: opacity-anim calc(var(--animation-speed) * 4) ease-in-out forwards; }
+@keyframes opacity-anim { 80% { opacity: 0; } 100% { opacity: 1; } }
+.btn-wrapper .btn {
+position: relative; display: flex; justify-content: center; align-items: center;
+padding: 0.8rem 1.25rem; background-color: #fff0; border: 1px solid var(--grid-color);
+color: #fffd; font-family: "Inter", sans-serif; letter-spacing: -0.01em; font-size: 1rem;
+font-weight: 500; text-transform: capitalize; border-radius: 6px; cursor: pointer;
+transition: transform .2s ease-in-out, letter-spacing .2s ease-in-out;
+}
+.btn-wrapper .btn:hover { background-color: #0f172a; color: #fff; transform: scale(1.05); letter-spacing: .06em; }
+.btn-wrapper .btn:active { background-color: #0f172a; transform: scale(.98); letter-spacing: .02em; }
+.btn-wrapper .btn-svg {
+margin-left: .5rem; height: 24px; stroke-width: 1.5; stroke-linecap: round;
+stroke-linejoin: round; stroke: #fff4; fill: #fff2; transition: all .2s ease-in-out;
+}
+.btn-wrapper .btn:hover .btn-svg { stroke: #fffa; fill: #fff3; }
+.btn-wrapper .dot { position: absolute; width: var(--dot-size); aspect-ratio: 1; border-radius: 2px; background-color: var(--dot-color); transition: all .3s ease-in-out; opacity: 0; }
+.btn-wrapper:has(.btn:hover) .dot.top.left { top: 50%; left: 20%; animation: move-top-left var(--animation-speed) ease-in-out forwards; }
+@keyframes move-top-left { 90% { opacity: .6; } 100% { top: calc(var(--dot-size) * -0.5); left: calc(var(--dot-size) * -0.5); opacity: 1; } }
+.btn-wrapper:has(.btn:hover) .dot.top.right { top: 50%; right: 20%; animation: move-top-right var(--animation-speed) ease-in-out forwards; animation-delay: calc(var(--animation-speed)*.6); }
+@keyframes move-top-right { 80% { opacity: .6; } 100% { top: calc(var(--dot-size) * -0.5); right: calc(var(--dot-size) * -0.5); opacity: 1; } }
+.btn-wrapper:has(.btn:hover) .dot.bottom.right { bottom: 50%; right: 20%; animation: move-bottom-right var(--animation-speed) ease-in-out forwards; animation-delay: calc(var(--animation-speed)*1.2); }
+@keyframes move-bottom-right { 80% { opacity: .6; } 100% { bottom: calc(var(--dot-size) * -0.5); right: calc(var(--dot-size) * -0.5); opacity: 1; } }
+.btn-wrapper:has(.btn:hover) .dot.bottom.left { bottom: 50%; left: 20%; animation: move-bottom-left var(--animation-speed) ease-in-out forwards; animation-delay: calc(var(--animation-speed)*1.8); }
+@keyframes move-bottom-left { 80% { opacity: .6; } 100% { bottom: calc(var(--dot-size) * -0.5); left: calc(var(--dot-size) * -0.5); opacity: 1; } }
+.btn-wrapper .line { position: absolute; transition: all .3s ease-in-out; }
+.btn-wrapper .line.horizontal { height: var(--line-weight); width: 100%; background-image: repeating-linear-gradient(90deg, #0000 0 calc(var(--line-weight)*2), var(--line-color) calc(var(--line-weight)*2) calc(var(--line-weight)*4)); }
+.btn-wrapper .line.top { top: calc(var(--line-weight)*-0.5); transform-origin: top left; transform: rotate(5deg) scaleX(0); }
+.btn-wrapper:has(.btn:hover) .line.top { animation: draw-top var(--animation-speed) ease-in-out forwards; animation-delay: calc(var(--animation-speed)*.8); }
+@keyframes draw-top { 100% { transform: rotate(0deg) scaleX(1); } }
+.btn-wrapper .line.bottom { bottom: calc(var(--line-weight)*-0.5); transform-origin: bottom right; transform: rotate(5deg) scaleX(0); }
+.btn-wrapper:has(.btn:hover) .line.bottom { animation: draw-bottom var(--animation-speed) ease-in-out forwards; animation-delay: calc(var(--animation-speed)*2); }
+@keyframes draw-bottom { 100% { transform: rotate(0deg) scaleX(1); } }
+.btn-wrapper .line.vertical { width: var(--line-weight); height: 100%; background-image: repeating-linear-gradient(0deg, #0000 0 calc(var(--line-weight)*2), var(--line-color) calc(var(--line-weight)*2) calc(var(--line-weight)*4)); }
+.btn-wrapper .line.left { left: calc(var(--line-weight)*-0.5); transform-origin: bottom left; transform: rotate(0deg) scaleY(0); }
+.btn-wrapper:has(.btn:hover) .line.left { animation: draw-left var(--animation-speed) ease-in-out forwards; animation-delay: calc(var(--animation-speed)*2.4); }
+@keyframes draw-left { 100% { transform: rotate(0deg) scaleY(1); } }
+.btn-wrapper .line.right { right: calc(var(--line-weight)*-0.5); transform-origin: top right; transform: rotate(5deg) scaleY(0); }
+.btn-wrapper:has(.btn:hover) .line.right { animation: draw-right var(--animation-speed) ease-in-out forwards; animation-delay: calc(var(--animation-speed)*1.4); }
+@keyframes draw-right { 100% { transform: rotate(0deg) scaleY(1); } }
+/* Scroll Animation */
+.animate-on-scroll { opacity: 0; transform: translateY(20px); transition: all 0.8s ease-out; }
+.animate-on-scroll.animate { opacity: 1; transform: translateY(0); }
+/* Range Slider Styling */
+input[type=range] {
+-webkit-appearance: none;
+width: 100%;
+background: transparent;
+cursor: pointer;
+}
+input[type=range]:focus { outline: none; }
+/* Webkit Track */
+input[type=range]::-webkit-slider-runnable-track {
+width: 100%;
+height: 4px;
+cursor: pointer;
+background: rgba(255, 255, 255, 0.1);
+border-radius: 9999px;
+border: 0;
+transition: background 0.2s;
+}
+input[type=range]:hover::-webkit-slider-runnable-track { background: rgba(255, 255, 255, 0.15); }
+/* Webkit Thumb */
+input[type=range]::-webkit-slider-thumb {
+height: 16px;
+width: 16px;
+border-radius: 50%;
+background: #ffffff;
+border: 1px solid rgba(0,0,0,0.1);
+box-shadow: 0 0 10px rgba(255,255,255,0.3);
+-webkit-appearance: none;
+margin-top: -6px;
+transition: transform 0.1s;
+}
+input[type=range]:active::-webkit-slider-thumb { transform: scale(1.1); background: #10b981; }
+/* Firefox Track */
+input[type=range]::-moz-range-track {
+width: 100%;
+height: 4px;
+cursor: pointer;
+background: rgba(255, 255, 255, 0.1);
+border-radius: 9999px;
+border: 0;
+}
+/* Firefox Thumb */
+input[type=range]::-moz-range-thumb {
+height: 16px;
+width: 16px;
+border: 1px solid rgba(0,0,0,0.1);
+border-radius: 50%;
+background: #ffffff;
+cursor: pointer;
+box-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+</style>
+<link id="all-fonts-link-font-geist" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-geist">.font-geist { font-family: 'Geist', sans-serif !important; }</style><style id="border-gradient-shared-style">
+[style*="--border-gradient"]::before {
+content: "";
+position: absolute;
+inset: 0;
+padding: 1px;
+border-radius: var(--border-radius-before, inherit);
+-webkit-mask: linear-gradient(#fff 0 0) content-box,
+linear-gradient(#fff 0 0);
+-webkit-mask-composite: xor;
+mask-composite: exclude;
+background: var(--border-gradient);
+pointer-events: none;
+}</style></head>
+
+<body class="antialiased text-slate-100 bg-[#000000]">
+
+    <!-- Unicorn Studio Background -->
+    <div class="fixed top-0 left-0 right-0 bottom-0 unicorn-stack unicorn-mask pointer-events-none z-[-10]">
+        <div data-us-project="VaqT3bxlc2sugR8faApF" class="absolute inset-0 w-full h-full"></div>
+    </div>
+    <script>
+        (function(){if(!window.UnicornStudio){window.UnicornStudio={isInitialized:!1};var i=document.createElement("script");i.src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.29/dist/unicornStudio.umd.js",i.async=!0,i.onload=function(){window.UnicornStudio.isInitialized||(UnicornStudio.init(),window.UnicornStudio.isInitialized=!0)},(document.head||document.body).appendChild(i)}})();
+    </script>
+
+    <!-- Header -->
+    <header class="sticky top-4 z-30 animate-enter px-4 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-7xl">
+            <div class="rounded-2xl border border-white/10 bg-black/30 backdrop-blur supports-[backdrop-filter]:bg-black/30">
+                <div class="flex bg-[#000000] border-[#ffffff]/10 border rounded-2xl pt-3 pr-3 pb-3 pl-3 items-center justify-between">
+                    <div class="flex items-center gap-3 pl-2">
+                        <!-- Logo (Text Only) -->
+                        <a href="index.html" class="flex items-center gap-3 text-white group transition-opacity hover:opacity-80">
+                            <span class="cursor-pointer text-lg font-semibold text-white/90 tracking-tight">SEAINT</span>
+                        </a>
+                    </div>
+
+                    <!-- Navigation -->
+                    <nav class="hidden items-center gap-6 text-sm font-medium text-slate-300 md:flex">
+                        <a href="#role" class="transition-colors hover:text-white">The Role</a>
+                        <a href="#curriculum" class="transition-colors hover:text-white">What You'll Learn</a>
+                        <a href="#earnings" class="transition-colors hover:text-white">Earnings</a>
+                        <a href="#team" class="transition-colors hover:text-white">Culture</a>
+                    </nav>
+
+                    <div class="flex gap-x-3 gap-y-3 items-center justify-center">
+                        <a href="#apply" class="group inline-flex items-center gap-2 transition-all duration-300 hover:scale-105 hover:border-slate-400/40 hover:bg-gradient-to-br hover:from-slate-500/30 hover:to-slate-500/20 hover:text-white text-sm font-medium text-white/90 bg-gradient-to-br from-white/5 via-white/10 to-white/5 rounded-md ring-0 pt-3 pr-5 pb-3 pl-5 relative shadow-[0_0_15px_rgba(255,255,255,0.05)]" style="position: relative; --border-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0)); --border-radius-before: 6px">Join the Team<iconify-icon icon="solar:user-plus-linear" width="18" height="18"></iconify-icon></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="animate-enter-delay-2 relative">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="sm:pt-24 sm:pb-28 lg:pt-40 lg:pb-0 max-w-7xl mr-auto ml-auto pt-16 pb-20">
+                
+                <!-- Floating Labels -->
+                <div class="pointer-events-none relative select-none">
+                    <span class="float-cursor float-chip-1 absolute left-[55%] -top-12 -translate-x-1/2 -translate-y-8 sm:-top-16">
+                        <span class="block whitespace-nowrap rounded-lg bg-emerald-500/10 backdrop-blur-md border border-emerald-500/20 px-3 py-1.5 text-xs font-medium text-emerald-200 shadow-[0_4px_20px_rgba(16,185,129,0.1)]">Potential: $100k+/Mo</span>
+                    </span>
+                    <span class="float-cursor float-chip-2 absolute right-[2%] top-12 hidden translate-x-8 translate-y-12 md:block">
+                        <span class="block whitespace-nowrap rounded-lg bg-white px-3 py-1.5 text-xs font-medium text-black shadow-[0_4px_20px_rgba(255,255,255,0.4)] ring-1 ring-black/5">AI Certified</span>
+                        <span class="mx-auto -mt-1 block h-2 w-2 rotate-45 rounded-sm bg-white"></span>
+                    </span>
+                    <span class="float-cursor float-chip-3 absolute left-[10%] bottom-6 hidden sm:block">
+                        <span class="block whitespace-nowrap rounded-lg bg-white px-3 py-1.5 text-xs font-medium text-black shadow-[0_4px_20px_rgba(255,255,255,0.4)] ring-1 ring-black/5">Growth Partner</span>
+                        <span class="mx-auto -mt-1 block h-2 w-2 rotate-45 rounded-sm bg-white"></span>
+                    </span>
+                </div>
+
+                <!-- Headline -->
+                <div class="text-center">
+                    <h1 class="mx-auto max-w-5xl text-4xl font-medium tracking-tight text-white sm:text-6xl md:text-7xl">
+                        <span class="text-white/95">More than</span>
+                        <span class="relative inline-block">
+                            <span class="absolute -inset-1 rounded-md bg-slate-500/20 blur-2xl"></span>
+                            <span class="relative">
+                                <span class="relative z-10">
+                                    <span class="relative inline-block">
+                                        <span class="absolute -inset-1 rounded-md ring-2 ring-slate-400/50 bg-gradient-to-br from-white/0 via-white/10 to-white/0"></span>
+                                        <span class="px-2">Sales.</span>
+                                    </span>
+                                </span>
+                            </span>
+                        </span>
+                        <span class="block mt-2 text-white/95">Become a Partner.</span>
+                    </h1>
+                    
+                    <p class="mx-auto mt-6 max-w-2xl text-xl leading-relaxed text-slate-300">
+                        Join an elite team where you don't just close deals—you master AI, learn advanced marketing, and build your future. 
+                        <span class="text-white font-medium">Scale from $10k to $100k monthly</span> while evolving into a full-stack growth architect.
+                    </p>
+
+                    <!-- CTAs -->
+                    <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+                        <!-- Custom Button -->
+                        <div class="btn-wrapper" style="--dot-size: 8px; --line-weight: 1px; --line-distance: 0.8rem 1rem; --animation-speed: 0.35s; --dot-color: #fffa; --line-color: #fffa; --grid-color: #fff3;">
+                            <div class="line horizontal top"></div>
+                            <div class="line horizontal bottom"></div>
+                            <div class="line vertical left"></div>
+                            <div class="line vertical right"></div>
+                            <div class="dot top left"></div>
+                            <div class="dot top right"></div>
+                            <div class="dot bottom left"></div>
+                            <div class="dot bottom right"></div>
+                            <a href="#apply" class="btn">
+                                Start Your Journey
+                                <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M5 12h14M12 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+                            </a>
+                        </div>
+                        
+                        <!-- Secondary Link -->
+                        <a href="#curriculum" class="text-sm font-medium leading-6 text-slate-300 transition-colors hover:text-white flex items-center gap-2 group">
+                            View the curriculum
+                            <span class="inline-block transition-transform group-hover:translate-x-1">→</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hero Dashboard Visual - CALCULATOR -->
+                <div class="relative mt-20 lg:mt-24">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-emerald-500/10 to-slate-400/10 rounded-2xl blur opacity-30"></div>
+                    <div class="relative rounded-2xl bg-black/40 border border-white/10 p-2 ring-1 ring-white/5 shadow-2xl backdrop-blur-sm">
+                        <!-- Calculator Container -->
+                        <div class="rounded-xl overflow-hidden bg-[#0A0A0A] border border-white/5 w-full relative z-10 flex flex-col md:flex-row">
+                            
+                            <!-- Calculator Interface (Left/Top) -->
+                            <div class="flex-1 p-6 md:p-8 border-b md:border-b-0 md:border-r border-white/5">
+                                <div class="flex justify-between items-center mb-6">
+                                    <div class="flex items-center gap-2">
+                                        <iconify-icon icon="solar:calculator-minimalistic-linear" class="text-emerald-400" width="20"></iconify-icon>
+                                        <span class="text-sm font-semibold text-slate-200 tracking-wide">FUNNEL SIMULATOR</span>
+                                    </div>
+                                    <span class="text-[10px] font-mono font-medium text-emerald-500/80 bg-emerald-500/10 px-2 py-1 rounded ring-1 ring-emerald-500/20">LIVE DATA</span>
+                                </div>
+
+                                <div class="space-y-6">
+                                    <!-- Input 1: Qualified Calls -->
+                                    <div class="group">
+                                        <div class="flex justify-between mb-2">
+                                            <label class="text-xs font-medium text-slate-500 uppercase tracking-wider">Qualified Calls / Month</label>
+                                            <span class="text-xs font-mono text-white bg-white/10 px-2 rounded flex items-center gap-1">
+                                                <iconify-icon icon="solar:phone-calling-linear" width="12"></iconify-icon>
+                                                <span id="callsValueDisplay">40</span>
+                                            </span>
+                                        </div>
+                                        <input type="range" id="callsInput" min="10" max="100" step="5" value="40" class="w-full">
+                                    </div>
+                                    
+                                    <!-- Input 2: Conversion Rate -->
+                                    <div class="group">
+                                        <div class="flex justify-between mb-2">
+                                            <label class="text-xs font-medium text-slate-500 uppercase tracking-wider">Conversion Rate (Close %)</label>
+                                            <span class="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2 rounded flex items-center gap-1 border border-emerald-500/20">
+                                                <iconify-icon icon="solar:chart-2-linear" width="12"></iconify-icon>
+                                                <span id="rateValueDisplay">20%</span>
+                                            </span>
+                                        </div>
+                                        <input type="range" id="rateInput" min="5" max="50" step="1" value="20" class="w-full">
+                                        <div class="flex justify-between text-[10px] text-slate-600 mt-1 font-mono">
+                                            <span>5%</span>
+                                            <span>25%</span>
+                                            <span>50%</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Input 3: Offer Price -->
+                                    <div class="group">
+                                        <div class="flex justify-between mb-2">
+                                            <label class="text-xs font-medium text-slate-500 uppercase tracking-wider">Offer Price</label>
+                                            <span class="text-xs font-mono text-white bg-white/10 px-2 rounded flex items-center gap-1">
+                                                <iconify-icon icon="solar:tag-price-linear" width="12"></iconify-icon>
+                                                <span id="priceValueDisplay">$5,000</span>
+                                            </span>
+                                        </div>
+                                        <input type="range" id="priceInput" min="1000" max="25000" step="1000" value="5000" class="w-full">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Calculator Results (Right/Bottom) -->
+                            <div class="w-full md:w-[320px] bg-white/[0.02] p-6 md:p-8 flex flex-col justify-between relative overflow-hidden">
+                                <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/[0.03] to-transparent pointer-events-none"></div>
+                                
+                                <div>
+                                    <div class="flex justify-between items-start mb-6">
+                                        <div>
+                                            <div class="text-[11px] font-medium text-slate-500 uppercase tracking-wider mb-1">Deals Closed</div>
+                                            <div class="text-xl font-mono text-white" id="dealsResult">8</div>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="text-[11px] font-medium text-slate-500 uppercase tracking-wider mb-1">Total Revenue</div>
+                                            <div class="text-xl font-mono text-white opacity-80" id="revenueResult">$40k</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="relative">
+                                        <div class="text-xs font-medium text-emerald-500 mb-1 uppercase tracking-wider">Your Take Home (15%)</div>
+                                        <div class="text-4xl md:text-5xl font-semibold text-white tracking-tight tabular-nums flex items-baseline gap-1">
+                                            <span class="text-2xl text-slate-400">$</span>
+                                            <span id="monthlyEarnings">6,000</span>
+                                        </div>
+                                        <div class="text-[11px] text-slate-500 mt-2 font-mono">Monthly Projection</div>
+                                    </div>
+                                </div>
+
+                                <div class="relative pt-6 border-t border-white/5 mt-6">
+                                    <div class="flex justify-between items-end">
+                                        <div>
+                                            <div class="text-xs font-medium text-slate-500 mb-1 uppercase tracking-wider">Annual Potential</div>
+                                            <div class="text-xl font-medium text-emerald-400 tracking-tight tabular-nums font-mono">
+                                                $<span id="yearlyEarnings">72,000</span>
+                                            </div>
+                                        </div>
+                                        <iconify-icon icon="solar:graph-new-up-linear" class="text-emerald-500/50 text-3xl"></iconify-icon>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Social Proof -->
+                <div class="mt-24 text-center">
+                    <p class="text-xs font-medium tracking-widest text-slate-500 uppercase mb-8">Master the tools of the modern enterprise</p>
+                    <div class="flex flex-wrap justify-center gap-x-12 gap-y-8 grayscale opacity-60">
+                        <div class="flex items-center gap-2 text-white font-semibold text-lg"><iconify-icon icon="ri:openai-fill" class="text-2xl"></iconify-icon> OpenAI</div>
+                        <div class="flex items-center gap-2 text-white font-semibold text-lg"><iconify-icon icon="simple-icons:hubspot" class="text-2xl"></iconify-icon> HubSpot</div>
+                        <div class="flex items-center gap-2 text-white font-semibold text-lg"><iconify-icon icon="simple-icons:googleads" class="text-2xl"></iconify-icon> Ads</div>
+                        <div class="flex items-center gap-2 text-white font-semibold text-lg"><iconify-icon icon="simple-icons:zapier" class="text-2xl"></iconify-icon> Zapier</div>
+                        <div class="flex items-center gap-2 text-white font-semibold text-lg"><iconify-icon icon="simple-icons:linkedin" class="text-2xl"></iconify-icon> LinkedIn</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Elite Intelligence & Security Grid -->
+    <section id="curriculum" class="py-24 relative overflow-hidden">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="mx-auto max-w-2xl text-center mb-16 animate-on-scroll">
+                <h2 class="text-base font-semibold leading-7 text-emerald-400">The Academy</h2>
+                <p class="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">Education. Empowerment. Earnings.</p>
+                <p class="mt-4 text-lg leading-7 text-slate-400">We don't just hire you; we invest in you. Get paid to learn the skills that will define the next decade of business.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                <!-- Feature 1: AI Mastery -->
+                <div class="group relative rounded-2xl border border-white/10 bg-white/[0.03] p-8 transition-all duration-300 hover:bg-white/[0.06] hover:border-white/20 animate-on-scroll">
+                    <div class="absolute inset-0 rounded-2xl bg-gradient-to-b from-white/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100"></div>
+                    <div class="relative">
+                        <div class="mb-6 inline-flex rounded-lg bg-emerald-500/10 p-3 text-emerald-400 ring-1 ring-inset ring-emerald-500/20">
+                            <iconify-icon icon="solar:brain-linear" width="24" height="24" stroke-width="1.5"></iconify-icon>
+                        </div>
+                        <h3 class="text-lg font-semibold leading-8 text-white">AI &amp; Tech Fluency</h3>
+                        <p class="mt-2 text-base leading-7 text-slate-400">Move beyond basic sales. Learn how to leverage LLMs, build automations, and understand the technical infrastructure of modern scaling.</p>
+                        <div class="mt-4 flex items-center gap-2 text-xs font-medium text-emerald-400/80">
+                            <iconify-icon icon="solar:check-circle-linear"></iconify-icon> Prompt Engineering Training
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature 2: Elite Marketing -->
+                <div class="group relative rounded-2xl border border-white/10 bg-white/[0.03] p-8 transition-all duration-300 hover:bg-white/[0.06] hover:border-white/20 animate-on-scroll">
+                     <div class="absolute inset-0 rounded-2xl bg-gradient-to-b from-white/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100"></div>
+                    <div class="relative">
+                        <div class="mb-6 inline-flex rounded-lg bg-indigo-500/10 p-3 text-indigo-400 ring-1 ring-inset ring-indigo-500/20">
+                             <iconify-icon icon="solar:graph-up-linear" width="24" height="24" stroke-width="1.5"></iconify-icon>
+                        </div>
+                        <h3 class="text-lg font-semibold leading-8 text-white">Full-Stack Marketing</h3>
+                        <p class="mt-2 text-base leading-7 text-slate-400">Understand the entire funnel. We teach you inbound strategy, copywriting, outbound prospecting, and value positioning.</p>
+                        <div class="mt-4 flex items-center gap-2 text-xs font-medium text-indigo-400/80">
+                            <iconify-icon icon="solar:users-group-rounded-linear"></iconify-icon> Lead Gen &amp; Psychology
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature 3: Financial Growth -->
+                <div class="group relative rounded-2xl border border-white/10 bg-white/[0.03] p-8 transition-all duration-300 hover:bg-white/[0.06] hover:border-white/20 animate-on-scroll">
+                     <div class="absolute inset-0 rounded-2xl bg-gradient-to-b from-white/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100"></div>
+                    <div class="relative">
+                        <div class="mb-6 inline-flex rounded-lg bg-blue-500/10 p-3 text-blue-400 ring-1 ring-inset ring-blue-500/20">
+                            <iconify-icon icon="solar:wallet-money-linear" width="24" height="24" stroke-width="1.5"></iconify-icon>
+                        </div>
+                        <h3 class="text-lg font-semibold leading-8 text-white">Uncapped Earnings</h3>
+                        <p class="mt-2 text-base leading-7 text-slate-400">High ticket offers mean high ticket commissions. Our structure is designed for top performers to clear $100,000/month.</p>
+                        <div class="mt-4 flex items-center gap-2 text-xs font-medium text-blue-400/80">
+                            <iconify-icon icon="solar:verified-check-linear"></iconify-icon> High Commission Structure
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Culture Section -->
+    <section id="team" class="py-24 border-t border-white/5">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="animate-on-scroll">
+                    <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl mb-6">More Than A Sales Rep.<br><span class="text-slate-400">You Are A Partner.</span></h2>
+                    <div class="space-y-6 text-lg text-slate-400 leading-relaxed">
+                        <p>
+                            Most companies treat sales teams as disposable numbers. At SEAINT, you are the engine. We operate as a high-performance sports team—collaborative, intense, and incredibly rewarding.
+                        </p>
+                        <p>
+                            You'll work directly with founders and senior strategists. You'll have input on product and messaging. You aren't just reading a script; you're building a business.
+                        </p>
+                        <ul class="space-y-4 mt-8">
+                            <li class="flex items-center gap-3 text-white text-base">
+                                <iconify-icon icon="solar:star-linear" class="text-emerald-400 text-xl"></iconify-icon> Direct Mentorship from Leadership
+                            </li>
+                            <li class="flex items-center gap-3 text-white text-base">
+                                <iconify-icon icon="solar:laptop-minimalistic-linear" class="text-emerald-400 text-xl"></iconify-icon> Access to Premium Tech Stack
+                            </li>
+                            <li class="flex items-center gap-3 text-white text-base">
+                                <iconify-icon icon="solar:global-linear" class="text-emerald-400 text-xl"></iconify-icon> Remote-First, Global Team
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="relative animate-on-scroll">
+                    <!-- Decorative elements -->
+                    <div class="absolute -inset-4 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-full blur-2xl opacity-20"></div>
+                    <div class="relative rounded-2xl border border-white/10 bg-black/40 p-1 backdrop-blur-sm">
+                        <div class="rounded-xl overflow-hidden relative aspect-square sm:aspect-[4/3]">
+                            <!-- Placeholder for Team/Culture abstract visual -->
+                             <div class="absolute inset-0 bg-gradient-to-br from-slate-900 to-black"></div>
+                             <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 20px 20px;"></div>
+                             <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="text-center">
+                                    <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/5 border border-white/10 mb-6 backdrop-blur-md">
+                                        <iconify-icon icon="solar:users-group-two-rounded-bold" class="text-4xl text-white"></iconify-icon>
+                                    </div>
+                                    <h3 class="text-xl font-medium text-white">The SEAINT Standard</h3>
+                                    <p class="text-sm text-slate-400 mt-2">Excellence is the only metric.</p>
+                                </div>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 bg-black pt-16 pb-12 animate-on-scroll">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="flex flex-col items-center justify-between gap-6 md:flex-row">
+                <div class="flex items-center gap-3">
+                    <!-- Footer Logo (Text Only) -->
+                    <a href="index.html" class="flex items-center gap-2 transition-opacity hover:opacity-80">
+                        <span class="text-lg font-semibold text-white tracking-widest uppercase">SEAINT</span>
+                    </a>
+                </div>
+                <div class="flex gap-8 text-sm text-slate-400">
+                    <a href="#" class="hover:text-white transition-colors">Apply Now</a>
+                    <a href="#" class="hover:text-white transition-colors">Curriculum</a>
+                    <a href="#" class="hover:text-white transition-colors">Testimonials</a>
+                    <a href="#" class="hover:text-white transition-colors">Contact</a>
+                </div>
+            </div>
+            <div class="mt-8 text-center text-xs text-slate-600">
+                © 2024 SEAINT Inc. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple Intersection Observer for scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.animate-on-scroll').forEach((el) => observer.observe(el));
+        
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Calculator Logic
+        const callsInput = document.getElementById('callsInput');
+        const rateInput = document.getElementById('rateInput');
+        const priceInput = document.getElementById('priceInput');
+        
+        const callsDisplay = document.getElementById('callsValueDisplay');
+        const rateDisplay = document.getElementById('rateValueDisplay');
+        const priceDisplay = document.getElementById('priceValueDisplay');
+        
+        const dealsResult = document.getElementById('dealsResult');
+        const revenueResult = document.getElementById('revenueResult');
+        const monthlyEarnings = document.getElementById('monthlyEarnings');
+        const yearlyEarnings = document.getElementById('yearlyEarnings');
+        
+        const commissionPercentage = 0.15; // 15% standard
+
+        function formatCurrency(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        function calculate() {
+            // Get values
+            const calls = parseInt(callsInput.value);
+            const rate = parseInt(rateInput.value);
+            const price = parseInt(priceInput.value);
+            
+            // Update Displays
+            callsDisplay.textContent = calls;
+            rateDisplay.textContent = rate + "%";
+            priceDisplay.textContent = '$' + formatCurrency(price);
+            
+            // Core Logic
+            const closedDeals = Math.round(calls * (rate / 100));
+            const totalRevenue = closedDeals * price;
+            const monthlyCommission = Math.round(totalRevenue * commissionPercentage);
+            const yearlyCommission = monthlyCommission * 12;
+
+            // Update Results
+            dealsResult.textContent = closedDeals;
+            revenueResult.textContent = '$' + (totalRevenue >= 1000 ? (totalRevenue/1000).toFixed(0) + 'k' : totalRevenue);
+            
+            // Animate numbers simple
+            monthlyEarnings.textContent = formatCurrency(monthlyCommission);
+            yearlyEarnings.textContent = formatCurrency(yearlyCommission);
+        }
+
+        // Event Listeners
+        callsInput.addEventListener('input', calculate);
+        rateInput.addEventListener('input', calculate);
+        priceInput.addEventListener('input', calculate);
+        
+        // Init
+        calculate();
+    </script>
+
+
+</body></html>
