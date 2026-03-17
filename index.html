@@ -1,662 +1,769 @@
-<html lang="en" class="scroll-smooth"><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SEAINT — Your 24/7 AI Workforce</title>
-<!-- Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Geist:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
-<!-- Scripts -->
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-<!-- Custom Styles -->
-<style>
-/* Base settings */
-body { font-family: 'Geist', 'Inter', sans-serif; background-color: #000; color: #e2e8f0; }
-.font-mono { font-family: 'JetBrains Mono', monospace; }
-/* Floating animations */
-@keyframes float-cursor { 0%,100%{transform:translate(0,0)} 50%{transform:translate(4px,-6px)} }
-@keyframes float-chip-1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-8px,-12px)} }
-@keyframes float-chip-2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(10px,8px)} }
-.float-cursor { animation: float-cursor 3s ease-in-out infinite; }
-.float-chip-1 { animation: float-chip-1 4s ease-in-out infinite; }
-.float-chip-2 { animation: float-chip-2 4.5s ease-in-out infinite; }
-/* Fade Slide In */
-@keyframes fadeSlideIn {
-0% { opacity: 0; transform: translateY(20px); filter: blur(8px); }
-100% { opacity: 1; transform: translateY(0); filter: blur(0px); }
-}
-.animate-enter { animation: fadeSlideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-.animate-enter-delay-1 { animation: fadeSlideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards; opacity: 0; }
-.animate-enter-delay-2 { animation: fadeSlideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; opacity: 0; }
-/* Unicorn Mask */
-.unicorn-mask {
-mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, black 15%, black 85%, rgba(0,0,0,0) 100%);
--webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, black 15%, black 85%, rgba(0,0,0,0) 100%);
-}
-/* Start Creating Button CSS */
-.btn-wrapper { --grid-color: rgba(255,255,255,0.1); --dot-color: #3b82f6; --line-color: #3b82f6; --dot-size: 4px; --line-weight: 1px; --animation-speed: 0.4s; position: relative; display: inline-block; }
-.btn-wrapper::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: inherit; pointer-events: none; background-color: #0000; background-image: repeating-linear-gradient(45deg, var(--grid-color) 0 1px, transparent 2px 5px); opacity: 0; z-index: -1; }
-.btn-wrapper:has(.btn:hover)::after { animation: opacity-anim calc(var(--animation-speed) * 4) ease-in-out forwards; }
-@keyframes opacity-anim { 80% { opacity: 0; } 100% { opacity: 1; } }
-.btn-wrapper .btn { position: relative; display: flex; justify-content: center; align-items: center; padding: 0.8rem 1.5rem; background-color: #fff0; border: 1px solid var(--grid-color); color: #fffd; font-family: "Geist", sans-serif; letter-spacing: -0.01em; font-size: 0.95rem; font-weight: 500; text-transform: capitalize; border-radius: 8px; cursor: pointer; transition: transform .2s ease-in-out, letter-spacing .2s ease-in-out, background-color .2s; overflow: hidden; }
-.btn-wrapper .btn:hover { background-color: #0f172a; color: #fff; transform: scale(1.02); letter-spacing: .01em; border-color: rgba(59,130,246,0.5); }
-.btn-wrapper .btn:active { transform: scale(.98); }
-.btn-wrapper .dot { position: absolute; width: var(--dot-size); aspect-ratio: 1; border-radius: 2px; background-color: var(--dot-color); transition: all .3s ease-in-out; opacity: 0; pointer-events: none; }
-.btn-wrapper:has(.btn:hover) .dot { opacity: 1; }
-.btn-wrapper:has(.btn:hover) .dot.top.left { top: 50%; left: 20%; animation: move-top-left var(--animation-speed) ease-in-out forwards; }
-.btn-wrapper:has(.btn:hover) .dot.top.right { top: 50%; right: 20%; animation: move-top-right var(--animation-speed) ease-in-out forwards; animation-delay: calc(var(--animation-speed)*.6); }
-.btn-wrapper:has(.btn:hover) .dot.bottom.right { bottom: 50%; right: 20%; animation: move-bottom-right var(--animation-speed) ease-in-out forwards; animation-delay: calc(var(--animation-speed)*1.2); }
-.btn-wrapper:has(.btn:hover) .dot.bottom.left { bottom: 50%; left: 20%; animation: move-bottom-left var(--animation-speed) ease-in-out forwards; animation-delay: calc(var(--animation-speed)*1.8); }
-@keyframes move-top-left { 90% { opacity: .6; } 100% { top: calc(var(--dot-size) * -0.5); left: calc(var(--dot-size) * -0.5); opacity: 1; } }
-@keyframes move-top-right { 80% { opacity: .6; } 100% { top: calc(var(--dot-size) * -0.5); right: calc(var(--dot-size) * -0.5); opacity: 1; } }
-@keyframes move-bottom-right { 80% { opacity: .6; } 100% { bottom: calc(var(--dot-size) * -0.5); right: calc(var(--dot-size) * -0.5); opacity: 1; } }
-@keyframes move-bottom-left { 80% { opacity: .6; } 100% { bottom: calc(var(--dot-size) * -0.5); left: calc(var(--dot-size) * -0.5); opacity: 1; } }
-/* Custom Range Slider */
-input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
-input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 18px; width: 18px; border-radius: 50%; background: #000; border: 2px solid #6366f1; cursor: grab; margin-top: -7px; box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1); transition: transform 0.1s, box-shadow 0.2s; }
-input[type=range]::-webkit-slider-thumb:active { cursor: grabbing; transform: scale(1.1); box-shadow: 0 0 0 6px rgba(99, 102, 241, 0.2); }
-input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; cursor: pointer; background: #1e1e2e; border-radius: 2px; }
-/* Select Dropdown */
-.custom-select { appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.5)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1em; }
-/* Animations */
-.animate-on-scroll { opacity: 0; transform: translateY(20px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-.animate-on-scroll.animate { opacity: 1; transform: translateY(0); }
-.pulse-circle { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4); animation: pulse-green 2s infinite; }
-@keyframes pulse-green { 0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4); } 70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(74, 222, 128, 0); } 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); } }
-/* Audio Wave */
-.audio-bar { animation: audio-wave 1s ease-in-out infinite; transform-origin: bottom; }
-@keyframes audio-wave { 0%, 100% { height: 20%; } 50% { height: 80%; } }
-/* Marquee */
-.marquee-mask { mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); }
-.marquee-content { animation: scroll 40s linear infinite; }
-@keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-html { scroll-behavior: smooth; }
-.glass-card { background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%); border: 1px solid rgba(255, 255, 255, 0.08); }
-.glass-card:hover { border-color: rgba(255,255,255,0.15); background: rgba(255,255,255,0.04); }
-.glow-card-blue { background: linear-gradient(180deg, rgba(59,130,246,0.05) 0%, rgba(0,0,0,0.5) 100%); border: 1px solid rgba(59,130,246,0.3); box-shadow: 0 0 30px rgba(59,130,246,0.05); }
-.glow-card-indigo { background: linear-gradient(180deg, rgba(99,102,241,0.08) 0%, rgba(0,0,0,0.5) 100%); border: 1px solid rgba(99,102,241,0.4); box-shadow: 0 0 40px rgba(99,102,241,0.08); }
-</style></head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SEAINT Media — AI Photo Orders</title>
 
-<body id="home" class="antialiased text-slate-100 bg-[#000000] selection:bg-indigo-500/30 selection:text-indigo-200">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 
-    <!-- Unicorn Studio Background -->
-    <div class="fixed top-0 left-0 right-0 bottom-0 unicorn-stack unicorn-mask pointer-events-none z-[-10]">
-        <div data-us-project="VaqT3bxlc2sugR8faApF" class="absolute inset-0 w-full h-full opacity-60"></div>
-    </div>
-    <script>
-        (function(){if(!window.UnicornStudio){window.UnicornStudio={isInitialized:!1};var i=document.createElement("script");i.src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.29/dist/unicornStudio.umd.js",i.async=!0,i.onload=function(){window.UnicornStudio.isInitialized||(UnicornStudio.init(),window.UnicornStudio.isInitialized=!0)},(document.head||document.body).appendChild(i)}})();
-    </script>
+  <style>
+    body {
+      font-family: 'Geist', 'Inter', sans-serif;
+      background: #000;
+      color: #e5e7eb;
+    }
 
-    <!-- Header -->
-    <header class="fixed top-6 left-0 right-0 z-50 px-6">
-        <div class="max-w-5xl mx-auto">
-            <div class="glass-card rounded-full px-4 py-2.5 flex items-center justify-between backdrop-blur-xl bg-black/50">
-    <a href="#home" class="flex items-center gap-2.5 pl-2 group">
-        
-        <span class="text-sm font-semibold text-white/90 tracking-tight cursor-pointer" onclick="window.location.href='/home'" role="button">SEAINT</span>
-    </a>
+    .glass-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.02) 100%);
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
 
-    <nav class="hidden md:flex gap-1 bg-white/5 border-white/5 border rounded-full pt-1 pr-1 pb-1 pl-1 gap-x-1 gap-y-1 items-center">
-        <a href="/sales-rep" class="hover:text-white hover:bg-white/10 transition-all text-xs font-medium text-white/60 rounded-full pt-1.5 pr-4 pb-1.5 pl-4">Affiliates</a>
-        <a href="/seaint-media" class="hover:text-white hover:bg-white/10 transition-all text-xs font-medium text-white/60 rounded-full pt-1.5 pr-4 pb-1.5 pl-4">SEAINT Media</a>
-    </nav>
+    .field {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: white;
+      border-radius: 14px;
+      padding: 0.9rem 1rem;
+      outline: none;
+      transition: all .2s ease;
+    }
 
-    <div class="relative flex items-center gap-3">
-        <a href="#consultation" class="hidden sm:flex items-center gap-1.5 hover:bg-gray-200 transition-colors text-xs font-medium text-black tracking-tight bg-white rounded-full pt-1.5 pr-4 pb-1.5 pl-4">
-            Book Consultation
-            <iconify-icon icon="solar:calendar-linear"></iconify-icon>
+    .field:focus {
+      border-color: rgba(99,102,241,0.7);
+      box-shadow: 0 0 0 4px rgba(99,102,241,0.12);
+    }
+
+    .field::placeholder,
+    textarea::placeholder {
+      color: rgba(255,255,255,0.32);
+    }
+
+    .pill {
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      color: rgba(255,255,255,0.72);
+      border-radius: 9999px;
+      padding: 0.55rem 0.95rem;
+      font-size: 0.75rem;
+      transition: all .2s ease;
+      cursor: pointer;
+    }
+
+    .pill.active {
+      background: rgba(99,102,241,0.12);
+      border-color: rgba(99,102,241,0.55);
+      color: #c7d2fe;
+    }
+
+    .upload-zone {
+      border: 1px dashed rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.03);
+      transition: all .2s ease;
+    }
+
+    .upload-zone:hover {
+      border-color: rgba(99,102,241,0.45);
+      background: rgba(99,102,241,0.05);
+    }
+
+    .btn-primary {
+      background: white;
+      color: black;
+      border-radius: 9999px;
+      padding: 0.95rem 1.25rem;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      transition: all .2s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      background: #e5e7eb;
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.05);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 9999px;
+      padding: 0.95rem 1.25rem;
+      font-size: 0.8125rem;
+      font-weight: 400;
+      transition: all .2s ease;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.09);
+    }
+
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      background-color: rgba(255,255,255,0.04);
+      margin: 0;
+      border: 1px solid rgba(255,255,255,0.15);
+      display: grid;
+      place-content: center;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    input[type="radio"] {
+      width: 1.25rem;
+      height: 1.25rem;
+      border-radius: 50%;
+    }
+
+    input[type="radio"]::before {
+      content: "";
+      width: 0.625rem;
+      height: 0.625rem;
+      border-radius: 50%;
+      transform: scale(0);
+      transition: 120ms transform ease-in-out;
+      box-shadow: inset 1em 1em #818cf8;
+    }
+
+    input[type="radio"]:checked {
+      border-color: #6366f1;
+      background-color: rgba(99,102,241,0.1);
+    }
+
+    input[type="radio"]:checked::before {
+      transform: scale(1);
+    }
+
+    input[type="checkbox"] {
+      width: 1.25rem;
+      height: 1.25rem;
+      border-radius: 0.375rem;
+    }
+
+    input[type="checkbox"]::before {
+      content: "";
+      width: 0.75rem;
+      height: 0.75rem;
+      transform: scale(0);
+      transition: 120ms transform ease-in-out;
+      box-shadow: inset 1em 1em #818cf8;
+      transform-origin: center;
+      clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    }
+
+    input[type="checkbox"]:checked {
+      border-color: #6366f1;
+      background-color: rgba(99,102,241,0.1);
+    }
+
+    input[type="checkbox"]:checked::before {
+      transform: scale(1);
+    }
+
+    select.field {
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+      background-position: right 0.75rem center;
+      background-repeat: no-repeat;
+      background-size: 1.25em 1.25em;
+      padding-right: 2.5rem;
+    }
+
+    .fade-in {
+      animation: fadeInUp .8s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+        filter: blur(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
+    }
+
+    #mobile-menu {
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      transform-origin: top;
+    }
+
+    #mobile-menu.hidden-menu {
+      opacity: 0;
+      transform: scaleY(0.95);
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body class="antialiased selection:bg-indigo-500/30 selection:text-indigo-200 scroll-smooth">
+  <div class="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
+    <div class="absolute top-[-8%] left-[10%] w-[480px] h-[480px] rounded-full bg-indigo-700/12 blur-[120px]"></div>
+    <div class="absolute bottom-[-10%] right-[12%] w-[460px] h-[460px] rounded-full bg-sky-700/10 blur-[120px]"></div>
+  </div>
+
+  <header class="fixed z-50 px-4 md:px-6 top-4 md:top-6 right-0 left-0">
+    <div class="max-w-6xl mx-auto relative">
+      <div class="glass-card rounded-full px-4 py-2.5 flex items-center justify-between bg-black/60 relative z-50">
+        <a href="index.html" class="flex items-center gap-2.5 pl-2 hover:opacity-80 transition-opacity">
+          <span class="w-2 h-2 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.5)]"></span>
+          <span class="text-sm font-medium tracking-tight text-white/90">SEAINT<span class="font-light text-white/30">_MEDIA</span></span>
         </a>
+
+        <nav class="hidden md:flex gap-1 bg-white/5 border border-white/5 rounded-full p-1 items-center">
+          <a href="index.html" class="text-xs font-medium text-white/60 hover:text-white hover:bg-white/10 rounded-full py-1.5 px-4 transition-all">Home</a>
+          <a href="seaint-media.html" class="text-xs font-medium text-white/90 bg-white/10 rounded-full py-1.5 px-4 transition-all">SEAINT MEDIA</a>
+          <a href="#packages" class="text-xs font-medium text-white/60 hover:text-white hover:bg-white/10 rounded-full py-1.5 px-4 transition-all">Pricing</a>
+          <a href="#order" class="text-xs font-medium text-white/60 hover:text-white hover:bg-white/10 rounded-full py-1.5 px-4 transition-all">Order Form</a>
+          <a href="#faq" class="text-xs font-medium text-white/60 hover:text-white hover:bg-white/10 rounded-full py-1.5 px-4 transition-all">FAQ</a>
+        </nav>
+
+        <a href="#order" class="hidden md:flex items-center gap-1.5 bg-white text-black rounded-full py-1.5 px-4 text-xs font-medium hover:bg-slate-200 transition-colors">
+          Start Order
+          <iconify-icon icon="solar:stars-minimalistic-linear"></iconify-icon>
+        </a>
+
+        <button id="mobileMenuBtn" class="md:hidden flex items-center justify-center p-1.5 text-white/80 hover:text-white transition-colors" aria-label="Toggle Menu">
+          <iconify-icon icon="solar:hamburger-menu-linear" class="text-xl"></iconify-icon>
+        </button>
+      </div>
+
+      <div id="mobile-menu" class="absolute top-[calc(100%+0.5rem)] left-0 right-0 glass-card rounded-2xl p-2 bg-black/90 shadow-2xl hidden-menu md:hidden z-40">
+        <div class="flex flex-col gap-1 p-2">
+          <a href="index.html" class="mobile-link text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 rounded-xl py-3 px-4 transition-all">Home</a>
+          <a href="seaint-media.html" class="mobile-link text-sm font-medium text-white rounded-xl py-3 px-4 bg-white/10 transition-all">SEAINT MEDIA</a>
+          <a href="#packages" class="mobile-link text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 rounded-xl py-3 px-4 transition-all">Pricing</a>
+          <a href="#order" class="mobile-link text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 rounded-xl py-3 px-4 transition-all">Order Form</a>
+          <a href="#faq" class="mobile-link text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 rounded-xl py-3 px-4 transition-all">FAQ</a>
+          <div class="h-px w-full bg-white/10 my-2"></div>
+          <a href="#order" class="mobile-link flex items-center justify-center gap-2 bg-white text-black rounded-xl py-3.5 px-4 text-sm font-medium hover:bg-slate-200 transition-colors mt-1">
+            Start Order
+            <iconify-icon icon="solar:stars-minimalistic-linear"></iconify-icon>
+          </a>
+        </div>
+      </div>
     </div>
-</div>
+  </header>
+
+  <section id="hero" class="pt-32 md:pt-40 pb-16 px-4 md:px-6 overflow-hidden">
+    <div class="max-w-5xl mx-auto text-center fade-in">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-[10px] sm:text-xs uppercase tracking-wider text-white/60 mb-6 md:mb-8">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.55)]"></span>
+        Premium AI Product Content
+      </div>
+
+      <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight text-white leading-[1.05] md:leading-[0.95] mb-6">
+        Send your files.<br />
+        <span class="text-white/40">Get elite AI visuals back.</span>
+      </h1>
+
+      <p class="text-sm md:text-base text-white/50 max-w-2xl mx-auto leading-relaxed font-light mb-8 md:mb-10 px-2">
+        Upload your product files, describe the style you want, choose your package, and let SEAINT create polished AI product photos and reels built for ads, websites, and social media.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+        <a href="#order" class="btn-primary w-full sm:w-auto inline-flex justify-center items-center gap-2">
+          Submit a Project
+          <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
+        </a>
+        <a href="#packages" class="btn-secondary w-full sm:w-auto inline-flex justify-center items-center gap-2">
+          View Pricing
+          <iconify-icon icon="solar:layers-minimalistic-linear"></iconify-icon>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="packages" class="px-4 md:px-6 pb-20">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+        <div class="glass-card rounded-3xl p-6 md:p-7 fade-in">
+          <div class="flex items-center justify-between mb-5">
+            <h3 class="text-lg font-medium text-white">Starter Photos</h3>
+            <span class="text-[10px] md:text-xs px-2 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 mono">50% OFF</span>
+          </div>
+          <div class="text-3xl md:text-4xl font-medium text-white tracking-tight mb-2 flex items-center gap-3">
+            <span class="text-xl md:text-2xl text-white/30 line-through font-light">$35</span>
+            $17.50
+          </div>
+          <p class="text-sm text-white/45 mb-6">Perfect for a quick product upgrade.</p>
+          <ul class="space-y-3 text-sm text-white/70">
+            <li class="flex gap-2"><iconify-icon icon="solar:check-circle-linear" class="mt-0.5 text-indigo-300"></iconify-icon><span>Up to 5 AI product photos</span></li>
+            <li class="flex gap-2"><iconify-icon icon="solar:check-circle-linear" class="mt-0.5 text-indigo-300"></iconify-icon><span>Luxury or lifestyle style direction</span></li>
+            <li class="flex gap-2"><iconify-icon icon="solar:check-circle-linear" class="mt-0.5 text-indigo-300"></iconify-icon><span>Commercial-use ready content</span></li>
+          </ul>
         </div>
-    </header>
 
-    <!-- Hero Section -->
-    <section class="overflow-hidden pt-40 pr-6 pb-20 pl-6 relative">
-        <div class="max-w-7xl mr-auto ml-auto">
-            
-            <!-- Floating Chips -->
-            <div class="absolute inset-0 pointer-events-none select-none z-0">
-                <div class="float-chip-1 absolute left-[15%] top-40 hidden lg:block">
-                    <div class="flex items-center gap-2 rounded-full bg-black/60 backdrop-blur-md px-4 py-2 text-[10px] font-mono border border-white/10 text-emerald-400">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                        Build Phase: 24h
-                    </div>
-                </div>
-                <div class="float-chip-2 absolute right-[15%] top-48 hidden lg:block">
-                    <div class="flex items-center gap-2 rounded-full bg-black/60 backdrop-blur-md px-4 py-2 text-[10px] font-mono border border-white/10 text-indigo-400">
-                        <iconify-icon icon="solar:rocket-linear"></iconify-icon>
-                        Agent Deployed: 48h
-                    </div>
-                </div>
-            </div>
-
-            <!-- Content -->
-            <div class="animate-enter text-center max-w-4xl z-10 mr-auto mb-20 ml-auto relative">
-                <div class="inline-flex gap-2 text-[11px] uppercase hover:bg-indigo-500/20 transition-colors cursor-default text-indigo-300 tracking-wider bg-indigo-500/10 border-indigo-500/20 border rounded-full mb-8 pt-1 pr-3 pb-1 pl-3 gap-x-2 gap-y-2 items-center">Custom WEBSITES in &lt; 48 Hours<span class="flex h-1.5 w-1.5 relative">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-indigo-500"></span>
-                    </span></div>
-                
-                <h1 class="text-5xl md:text-7xl lg:text-8xl font-medium tracking-tight text-white mb-8 leading-[0.95]">
-                    Scale your business <br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-white/40">while you sleep.</span>
-                </h1>
-                
-                <p class="text-lg md:text-xl text-white/50 max-w-2xl mx-auto mb-10 leading-relaxed font-light">
-                    Hire the AI employee that never clocks out. From handling inbound calls to executing complex workflows—SEAINT is your 24/7 autonomous workforce.
-                </p>
-
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <div class="btn-wrapper">
-                        <div class="dot top left"></div>
-                        <div class="dot top right"></div>
-                        <div class="dot bottom left"></div>
-                        <div class="dot bottom right"></div>
-                        <a href="#consultation" class="btn">
-                            Book Consultation Now
-                            <iconify-icon icon="solar:arrow-right-linear" class="ml-2 text-lg"></iconify-icon>
-                        </a>
-                    </div>
-                    
-                </div>
-            </div>
-
-            <!-- Dashboard Preview -->
-            <div class="relative max-w-5xl mx-auto animate-enter-delay-1">
-                <div class="absolute -inset-1 bg-gradient-to-b from-indigo-500/20 to-transparent rounded-2xl blur-xl opacity-30"></div>
-                <div class="glass-card rounded-xl border-white/10 bg-[#0A0A0A] overflow-hidden shadow-2xl ring-1 ring-white/10">
-                    <!-- Dashboard Header -->
-                    <div class="h-12 border-b border-white/5 bg-white/[0.02] flex items-center justify-between px-4">
-                        <div class="flex items-center gap-2">
-                            <div class="flex gap-1.5">
-                                <div class="w-2.5 h-2.5 rounded-full bg-white/10"></div>
-                                <div class="w-2.5 h-2.5 rounded-full bg-white/10"></div>
-                                <div class="w-2.5 h-2.5 rounded-full bg-white/10"></div>
-                            </div>
-                        </div>
-                        <div class="text-[10px] font-mono text-white/30 uppercase tracking-widest hidden sm:block">Live Deployment • Workspace 01</div>
-                        <div class="flex items-center gap-2">
-                            <span class="relative flex h-2 w-2">
-                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
-                                <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                            </span>
-                            <span class="text-xs text-white/50">Online</span>
-                        </div>
-                    </div>
-
-                    <!-- Dashboard Grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/5 bg-[#050505] min-h-[350px]">
-                        
-                        <!-- Col 1: Active Call -->
-                        <div class="p-6">
-                            <div class="flex items-center justify-between mb-6">
-                                <h3 class="text-xs font-semibold text-white/40 uppercase tracking-widest">Active Build</h3>
-                                <iconify-icon icon="solar:stopwatch-linear" class="text-white/40"></iconify-icon>
-                            </div>
-                            <div class="bg-indigo-500/5 border border-indigo-500/20 rounded-lg p-5 relative overflow-hidden group">
-                                <div class="flex justify-between items-start mb-6">
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400">
-                                            <iconify-icon icon="solar:code-circle-linear" class="text-xl"></iconify-icon>
-                                        </div>
-                                        <div class="">
-                                            <div class="text-sm text-white font-medium">Custom Voice Agent</div>
-                                            <div class="text-[10px] text-indigo-300/60 font-mono">ID: AGT-9042</div>
-                                        </div>
-                                    </div>
-                                    <div class="px-2 py-0.5 rounded text-[10px] bg-green-500/10 text-green-400 border border-green-500/20">48h Track</div>
-                                </div>
-                                <div class="flex items-end justify-center gap-1 h-12 w-full mb-2">
-                                    <div class="w-1 bg-indigo-400 rounded-full audio-bar" style="animation-delay: 0s"></div>
-                                    <div class="w-1 bg-indigo-400 rounded-full audio-bar" style="animation-delay: 0.2s"></div>
-                                    <div class="w-1 bg-indigo-400 rounded-full audio-bar" style="animation-delay: 0.1s"></div>
-                                    <div class="w-1 bg-indigo-400 rounded-full audio-bar" style="animation-delay: 0.4s"></div>
-                                    <div class="w-1 bg-indigo-400 rounded-full audio-bar" style="animation-delay: 0.3s"></div>
-                                    <div class="w-1 bg-indigo-400 rounded-full audio-bar" style="animation-delay: 0.2s"></div>
-                                </div>
-                                <p class="text-[10px] text-indigo-300/50 font-mono text-center">Training GPT-4o model &amp; optimizing...</p>
-                            </div>
-                        </div>
-
-                        <!-- Col 2: Task Log -->
-                        <div class="p-6 relative">
-                            <div class="flex items-center justify-between mb-6">
-                                <h3 class="text-xs font-semibold text-white/40 uppercase tracking-widest">Sprint Log</h3>
-                                <iconify-icon icon="solar:clipboard-list-linear" class="text-white/40"></iconify-icon>
-                            </div>
-                            <div class="space-y-4 relative z-10">
-                                <div class="flex gap-3 items-start">
-                                    <div class="mt-0.5 text-blue-400 bg-blue-400/10 p-1 rounded"><iconify-icon icon="solar:database-linear"></iconify-icon></div>
-                                    <div>
-                                        <div class="text-xs text-white">Knowledge Base Synced</div>
-                                        <div class="text-[10px] text-white/40 mt-0.5">Vector DB • 2h ago</div>
-                                    </div>
-                                </div>
-                                <div class="flex gap-3 items-start">
-                                    <div class="mt-0.5 text-purple-400 bg-purple-400/10 p-1 rounded"><iconify-icon icon="solar:cpu-bolt-linear"></iconify-icon></div>
-                                    <div class="">
-                                        <div class="text-xs text-white">GPT-4o Integrated</div>
-                                        <div class="text-[10px] text-white/40 mt-0.5">OpenAI API • 18h ago</div>
-                                    </div>
-                                </div>
-                                <div class="flex gap-3 items-start opacity-50">
-                                    <div class="mt-0.5 text-emerald-400 bg-emerald-400/10 p-1 rounded"><iconify-icon icon="solar:server-linear"></iconify-icon></div>
-                                    <div>
-                                        <div class="text-xs text-white">Agent Deployed</div>
-                                        <div class="text-[10px] text-white/40 mt-0.5">Production • 36h ago</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#050505] to-transparent z-20 pointer-events-none"></div>
-                        </div>
-
-                        <!-- Col 3: Stats -->
-                        <div class="p-6">
-                            <div class="flex items-center justify-between mb-6">
-                                <h3 class="text-xs font-semibold text-white/40 uppercase tracking-widest">Delivery Metrics</h3>
-                                <iconify-icon icon="solar:stopwatch-play-linear" class="text-white/40"></iconify-icon>
-                            </div>
-                            <div class="glass-card rounded-lg p-4 mb-4">
-                                <div class="text-[10px] text-white/40 mb-1">Avg. Turnaround Time</div>
-                                <div class="flex items-end gap-2">
-                                    <div class="text-2xl font-semibold text-white">42.4h</div>
-                                    <div class="text-[10px] text-emerald-400 mb-1 flex items-center">
-                                        <iconify-icon icon="solar:arrow-right-down-linear"></iconify-icon> 5.2h
-                                    </div>
-                                </div>
-                            </div>
-                             <div class="glass-card rounded-lg p-4">
-                                <div class="text-[10px] text-white/40 mb-1">Agents Shipped</div>
-                                <div class="flex items-end gap-2">
-                                    <div class="text-2xl font-semibold text-white">1,204</div>
-                                    <div class="w-full h-1.5 bg-white/10 rounded-full mb-2 ml-2 relative overflow-hidden">
-                                        <div class="absolute inset-0 bg-white/80 w-[90%] rounded-full"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+        <div class="glass-card rounded-3xl p-6 md:p-7 border border-indigo-500/30 relative fade-in" style="animation-delay:.04s;">
+          <div class="absolute top-4 right-4 text-[10px] md:text-xs px-2 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 mono">MOST POPULAR</div>
+          <div class="flex items-center justify-between mb-5">
+            <h3 class="text-lg font-medium text-white pr-24">Monthly Content</h3>
+            <span class="text-[10px] md:text-xs mono text-indigo-300 hidden sm:block">MONTHLY</span>
+          </div>
+          <div class="text-3xl md:text-4xl font-medium text-white tracking-tight mb-2">$100</div>
+          <p class="text-sm text-white/45 mb-6">Consistent product content every month.</p>
+          <ul class="space-y-3 text-sm text-white/70">
+            <li class="flex gap-2"><iconify-icon icon="solar:check-circle-linear" class="mt-0.5 text-indigo-300"></iconify-icon><span>5 product photos per month</span></li>
+            <li class="flex gap-2"><iconify-icon icon="solar:check-circle-linear" class="mt-0.5 text-indigo-300"></iconify-icon><span>4 short-form reels per month</span></li>
+            <li class="flex gap-2"><iconify-icon icon="solar:check-circle-linear" class="mt-0.5 text-indigo-300"></iconify-icon><span>Flyers &amp; content captions included</span></li>
+            <li class="flex gap-2"><iconify-icon icon="solar:check-circle-linear" class="mt-0.5 text-indigo-300"></iconify-icon><span>Premium prompt engineering</span></li>
+          </ul>
         </div>
-    </section>
 
-    <!-- Trusted By Ticker -->
-    <section class="border-y border-white/5 bg-white/[0.02] py-8 overflow-hidden relative">
-        <div class="max-w-7xl mx-auto px-6 relative z-10">
-            <p class="text-center text-xs font-medium text-white/30 uppercase tracking-widest mb-6">Trusted by forward-thinking teams</p>
-            <div class="marquee-mask relative overflow-hidden w-full">
-                <div class="marquee-content flex gap-16 w-max">
-                    <!-- Logos (Repeated for effect) -->
-                    <div class="flex gap-16 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
-                        <iconify-icon icon="simple-icons:stripe" class="text-3xl"></iconify-icon>
-                        <iconify-icon icon="simple-icons:vercel" class="text-3xl"></iconify-icon>
-                        <iconify-icon icon="simple-icons:linear" class="text-3xl"></iconify-icon>
-                        <iconify-icon icon="simple-icons:notion" class="text-3xl"></iconify-icon>
-                        <iconify-icon icon="simple-icons:airtable" class="text-3xl"></iconify-icon>
-                        <iconify-icon icon="simple-icons:intercom" class="text-3xl"></iconify-icon>
-                        <iconify-icon icon="simple-icons:shopify" class="text-3xl"></iconify-icon>
-                        <!-- Repeat -->
-                         <iconify-icon icon="simple-icons:stripe" class="text-3xl"></iconify-icon>
-                        <iconify-icon icon="simple-icons:vercel" class="text-3xl"></iconify-icon>
-                        <iconify-icon icon="simple-icons:linear" class="text-3xl"></iconify-icon>
-                        <iconify-icon icon="simple-icons:notion" class="text-3xl"></iconify-icon>
-                        <iconify-icon icon="simple-icons:airtable" class="text-3xl"></iconify-icon>
-                        <iconify-icon icon="simple-icons:intercom" class="text-3xl"></iconify-icon>
-                    </div>
-                </div>
-            </div>
+        <div class="glass-card rounded-3xl p-6 md:p-7 fade-in" style="animation-delay:.08s;">
+          <div class="flex items-center justify-between mb-5">
+            <h3 class="text-lg font-medium text-white">Portfolio &amp; Shop</h3>
+            <span class="text-[10px] md:text-xs mono text-white/40">ONE TIME</span>
+          </div>
+          <div class="text-3xl md:text-4xl font-medium text-white tracking-tight mb-2">$400</div>
+          <p class="text-sm text-white/45 mb-6">A full website build for your brand and products.</p>
+          <ul class="space-y-3 text-sm text-white/70">
+            <li class="flex gap-2"><iconify-icon icon="solar:check-circle-linear" class="mt-0.5 text-indigo-300"></iconify-icon><span>Up to 15 products included</span></li>
+            <li class="flex gap-2"><iconify-icon icon="solar:check-circle-linear" class="mt-0.5 text-indigo-300"></iconify-icon><span>E-commerce capabilities</span></li>
+            <li class="flex gap-2"><iconify-icon icon="solar:check-circle-linear" class="mt-0.5 text-indigo-300"></iconify-icon><span>Mobile-optimized layout</span></li>
+          </ul>
         </div>
-    </section>
 
-    <!-- ROI Calculator -->
-    <section class="scroll-mt-24 pt-32 pb-32 relative" id="calculator">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-                <div class="animate-on-scroll">
-                    <div class="inline-flex items-center gap-2 rounded-full border border-red-500/20 bg-red-500/5 px-3 py-1 text-xs font-medium text-red-400 mb-6">
-                        <iconify-icon icon="solar:danger-triangle-linear"></iconify-icon>
-                        Missed Opportunity
-                    </div>
-                    <h2 class="text-3xl md:text-5xl font-medium tracking-tight text-white mb-6">
-                        Hidden costs of <br>
-                        <span class="text-white/40">human limitations.</span>
-                    </h2>
-                    <p class="text-lg text-white/50 mb-12 max-w-md">
-                        Businesses lose up to 70% of potential leads simply by not answering the phone after 5 PM. Calculate your potential revenue loss below.
-                    </p>
-
-                    <div class="glass-card bg-[#0A0A0A] rounded-2xl pt-8 pr-8 pb-8 pl-8 space-y-10">
-                        <!-- Input Group -->
-                        <div class="">
-                            <label class="block text-[10px] font-semibold text-white/40 uppercase tracking-widest mb-3">Industry Model</label>
-                            <div class="relative group">
-                                <iconify-icon icon="solar:buildings-linear" class="absolute left-3 top-3.5 text-white/40 pointer-events-none z-10 group-hover:text-white transition-colors"></iconify-icon>
-                                <select class="custom-select focus:outline-none focus:border-indigo-500 transition-colors cursor-pointer hover:bg-white/10 text-sm text-slate-600 bg-gray-950/5 w-full border-white/10 border rounded-lg pl-10" id="industryInput">
-                                    <option value="real_estate" class="">Real Estate</option>
-                                    <option value="medical">Healthcare / Medical</option>
-                                    <option value="construction">Construction &amp; Trades</option>
-                                    <option value="legal">Legal Services</option>
-                                    <option value="home_services" class="">Home Services</option>
-                                    <option value="tech">SaaS / Technology</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Range Group: Leads -->
-                        <div class="">
-                            <div class="flex justify-between mb-4">
-                                <label class="text-[10px] font-semibold text-white/40 uppercase tracking-widest">Monthly Inbound Leads</label>
-                                <span class="text-sm font-mono text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20" id="leadsValue">150</span>
-                            </div>
-                            <input type="range" min="10" max="1000" step="10" value="150" class="slider" style="background: linear-gradient(to right, rgb(99, 102, 241) 14.1414%, rgb(30, 30, 46) 14.1414%);" id="leadsRange">
-                            <div class="flex justify-between text-[10px] text-white/20 mt-2 font-mono">
-                                <span>10</span>
-                                <span>500</span>
-                                <span>1000+</span>
-                            </div>
-                        </div>
-
-                        <!-- Range Group: Staff -->
-                        <div class="">
-                            <div class="flex justify-between mb-4">
-                                <div>
-                                    <label class="text-[10px] font-semibold text-white/40 uppercase tracking-widest block">Human Receptionists</label>
-                                    <span class="text-[10px] text-white/30">Standard 40h/week shift</span>
-                                </div>
-                                <span class="text-sm font-mono text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20" id="staffValue">1 People</span>
-                            </div>
-                            <input type="range" min="0" max="10" step="1" value="1" id="staffRange" class="slider" style="background: linear-gradient(to right, rgb(99, 102, 241) 10%, rgb(30, 30, 46) 10%);">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Results Card -->
-                <div class="animate-on-scroll relative mt-12 lg:mt-0">
-                    <!-- Glow -->
-                    <div class="absolute -inset-1 bg-gradient-to-tr from-red-600/30 via-orange-500/20 to-indigo-600/30 rounded-3xl opacity-40 blur-3xl"></div>
-                    
-                    <div class="glass-card rounded-2xl p-8 md:p-10 relative bg-[#050505] border border-white/10">
-                        <div class="absolute top-0 right-0 p-6 opacity-20">
-                            <iconify-icon icon="solar:graph-down-bold" class="text-9xl text-white"></iconify-icon>
-                        </div>
-
-                        <div class="flex flex-col gap-8 relative z-10">
-                            <h3 class="text-sm font-medium text-white/70">Projected Monthly Loss</h3>
-                            
-                            <!-- Metric 1: Revenue -->
-                            <div class="pb-8 border-b border-white/5">
-                                <div class="text-6xl md:text-7xl font-semibold text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-white/50 tracking-tighter" id="lostRevenueResult">$22,500</div>
-                                <div class="mt-4 flex gap-2 items-center">
-                                    <div class="p-1 rounded bg-red-500/20 text-red-400">
-                                        <iconify-icon icon="solar:arrow-right-down-linear"></iconify-icon>
-                                    </div>
-                                    <span class="text-sm text-red-400/80">Lost recurring revenue</span>
-                                </div>
-                            </div>
-
-                            <!-- Detailed Stats -->
-                            <div class="grid grid-cols-2 gap-6">
-                                <div class="">
-                                    <div class="text-[10px] uppercase tracking-widest text-white/40 mb-1">Unanswered Calls</div>
-                                    <div class="text-2xl font-medium text-white" id="missedLeadsResult">60</div>
-                                </div>
-                                <div>
-                                    <div class="text-[10px] uppercase tracking-widest text-white/40 mb-1">Human Coverage</div>
-                                    <div class="text-2xl font-medium text-white" id="coverageDisplay">60%</div>
-                                </div>
-                            </div>
-
-                            <!-- Visualization -->
-                            <div class="bg-white/5 rounded-xl p-5 border border-white/5">
-                                <div class="flex justify-between items-end mb-3">
-                                    <div>
-                                        <div class="text-[10px] uppercase tracking-wider text-white/60 mb-1">24h Availability Gap</div>
-                                        <div class="text-xs text-white/30">AI closes the red gap</div>
-                                    </div>
-                                    <span id="gapPercent" class="text-red-400 font-mono text-xs">40% Uncovered</span>
-                                </div>
-                                <div class="h-3 w-full bg-[#111] rounded-full overflow-hidden flex shadow-inner">
-                                    <!-- Green part (Covered) -->
-                                    <div id="coverageBar" class="h-full shadow-[0_0_10px_rgba(16,185,129,0.5)] transition-all duration-700" style="width: 60%; box-shadow: rgba(16, 185, 129, 0.5) 0px 0px 10px;"></div>
-                                    <!-- Red part (Missed) -->
-                                    <div class="h-full flex-1 bg-red-500/20 relative overflow-hidden">
-                                        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPC9zdmc+')] opacity-30"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="glass-card rounded-3xl p-6 md:p-7 fade-in" style="animation-delay:.12s;">
+          <div class="flex items-center justify-between mb-5">
+            <h3 class="text-lg font-medium text-white">Social Media Setup</h3>
+            <span class="text-[10px] md:text-xs mono text-white/40">ONE TIME</span>
+          </div>
+          <div class="text-3xl md:text-4xl font-medium text-white tracking-tight mb-2">$75</div>
+          <p class="text-sm text-white/45 mb-6">Automate your brand's incoming messages.</p>
+          <ul class="space-y-3 text-sm text-white/70">
+            <li class="flex gap-2"><iconify-icon icon="solar:check-circle-linear" class="mt-0.5 text-indigo-300"></iconify-icon><span>Instant social media reply setup</span></li>
+            <li class="flex gap-2"><iconify-icon icon="solar:check-circle-linear" class="mt-0.5 text-indigo-300"></iconify-icon><span>Instagram &amp; Messenger connected</span></li>
+            <li class="flex gap-2"><iconify-icon icon="solar:check-circle-linear" class="mt-0.5 text-indigo-300"></iconify-icon><span>Custom welcome flows &amp; FAQs</span></li>
+          </ul>
         </div>
-    </section>
 
-    <!-- Feature Grid -->
-    <section id="features" class="border-white/5 border-t pt-32 pb-32">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="mb-20">
-                <h2 class="text-3xl md:text-4xl font-medium tracking-tight text-white mb-6">Comprehensive capabilities.</h2>
-                <p class="text-lg text-white/50 max-w-xl">Don't just automate tasks—hire a complete digital workforce.</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Feature 1 -->
-                <div class="glass-card rounded-2xl p-8 hover:transform hover:-translate-y-1 transition-all duration-300 group">
-                    <div class="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 mb-6 group-hover:bg-indigo-500/20 transition-colors">
-                        <iconify-icon icon="solar:phone-calling-linear" class="text-2xl"></iconify-icon>
-                    </div>
-                    <h3 class="text-lg font-medium tracking-tight text-white mb-3">Inbound Receptionist</h3>
-                    <p class="text-sm text-white/50 leading-relaxed">
-                        Answers calls instantly, qualifies prospects, and books meetings directly to your calendar 24/7.
-                    </p>
-                </div>
-
-                <!-- Feature 2 -->
-                <div class="glass-card rounded-2xl p-8 hover:transform hover:-translate-y-1 transition-all duration-300 group">
-                    <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 mb-6 group-hover:bg-blue-500/20 transition-colors">
-                        <iconify-icon icon="solar:outgoing-call-linear" class="text-2xl"></iconify-icon>
-                    </div>
-                    <h3 class="text-lg font-medium tracking-tight text-white mb-3">Outbound Sales</h3>
-                    <p class="text-sm text-white/50 leading-relaxed">
-                        Scale your outreach. Reactivate cold leads and follow up on inquiries with human-like voice AI.
-                    </p>
-                </div>
-
-                <!-- Feature 3 -->
-                <div class="glass-card rounded-2xl p-8 hover:transform hover:-translate-y-1 transition-all duration-300 group">
-                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 mb-6 group-hover:bg-emerald-500/20 transition-colors">
-                        <iconify-icon icon="solar:bolt-linear" class="text-2xl"></iconify-icon>
-                    </div>
-                    <h3 class="text-lg font-medium tracking-tight text-white mb-3">Multi-Modal Action</h3>
-                    <p class="text-sm text-white/50 leading-relaxed">
-                        Triggers workflows across your stack: Sends SMS, updates CRM, and dispatches emails.
-                    </p>
-                </div>
-            </div>
+        <div class="glass-card rounded-3xl p-6 md:p-7 fade-in md:col-span-2 lg:col-span-1" style="animation-delay:.16s;">
+          <div class="flex items-center justify-between mb-5">
+            <h3 class="text-lg font-medium text-white">Brand Campaign</h3>
+            <span class="text-[10px] md:text-xs mono text-white/40">CUSTOM</span>
+          </div>
+          <div class="text-3xl md:text-4xl font-medium text-white tracking-tight mb-2">Quote</div>
+          <p class="text-sm text-white/45 mb-6">For multiple products, campaign launches, or high-volume creative.</p>
+          <ul class="space-y-3 text-sm text-white/70">
+            <li class="flex gap-2"><iconify-icon icon="solar:check-circle-linear" class="mt-0.5 text-indigo-300"></iconify-icon><span>Custom photo volume</span></li>
+            <li class="flex gap-2"><iconify-icon icon="solar:check-circle-linear" class="mt-0.5 text-indigo-300"></iconify-icon><span>More reels and platform cuts</span></li>
+            <li class="flex gap-2"><iconify-icon icon="solar:check-circle-linear" class="mt-0.5 text-indigo-300"></iconify-icon><span>Full creative direction</span></li>
+          </ul>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Contact / CTA Section -->
-    <section id="contact" class="py-32 border-t border-white/5 relative bg-black overflow-hidden">
-        <!-- Glow effect -->
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl h-1/2 bg-indigo-600/10 blur-[120px] rounded-full pointer-events-none"></div>
-        
-        <div class="max-w-4xl mx-auto px-6 relative z-10 text-center flex flex-col items-center">
-            
-            <!-- Emphasized 48 Hour Badge -->
-            <div class="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-emerald-500/40 bg-emerald-500/10 text-xs md:text-sm uppercase tracking-widest text-emerald-400 mb-8 font-medium shadow-[0_0_30px_rgba(16,185,129,0.15)]">
-                <span class="relative flex h-2.5 w-2.5">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-                </span>
-                Guaranteed 48 Hour Turnaround Time
+  <section id="order" class="px-4 md:px-6 pb-24">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 items-start">
+      <div class="lg:col-span-4 lg:sticky lg:top-24 space-y-6 fade-in">
+        <div class="glass-card rounded-3xl p-5 md:p-6">
+          <div class="flex items-center justify-between mb-3">
+            <h2 class="text-lg font-medium text-white tracking-tight">Order Summary</h2>
+            <span class="text-[10px] md:text-xs mono text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded-full border border-emerald-400/20">LIVE CALCULATOR</span>
+          </div>
+          <p class="text-sm text-white/45 mb-6">Choose your package and extras. Monthly package is preset to your pricing.</p>
+
+          <div class="space-y-4">
+            <div class="p-4 rounded-2xl bg-white/4 border border-white/6">
+              <label class="text-xs uppercase tracking-widest text-white/40 block mb-3">Package Type</label>
+              <div class="space-y-2">
+                <label class="flex items-start gap-3 p-3 rounded-2xl border border-white/8 bg-white/4 cursor-pointer hover:bg-white/5 transition-colors">
+                  <input type="radio" name="package" value="17.5" class="mt-1 shrink-0" onchange="updateCalculator()" />
+                  <div class="min-w-0">
+                    <div class="text-sm text-white font-medium flex flex-wrap items-center gap-1">
+                      Starter Photos
+                      <span class="text-[10px] md:text-xs text-emerald-400">50% OFF</span>
+                    </div>
+                    <div class="text-[11px] md:text-xs text-white/45 mt-0.5">5 AI product photos</div>
+                  </div>
+                </label>
+
+                <label class="flex items-start gap-3 p-3 rounded-2xl border border-indigo-500/30 bg-indigo-500/8 cursor-pointer hover:bg-indigo-500/10 transition-colors">
+                  <input type="radio" name="package" value="100" checked class="mt-1 shrink-0" onchange="updateCalculator()" />
+                  <div class="min-w-0">
+                    <div class="text-sm text-white font-medium">Monthly Content Pack</div>
+                    <div class="text-[11px] md:text-xs text-white/45 mt-0.5">5 photos + 4 reels + flyers &amp; captions</div>
+                  </div>
+                </label>
+
+                <label class="flex items-start gap-3 p-3 rounded-2xl border border-white/8 bg-white/4 cursor-pointer hover:bg-white/5 transition-colors">
+                  <input type="radio" name="package" value="400" class="mt-1 shrink-0" onchange="updateCalculator()" />
+                  <div class="min-w-0">
+                    <div class="text-sm text-white font-medium">Portfolio Website &amp; Shop</div>
+                    <div class="text-[11px] md:text-xs text-white/45 mt-0.5">Up to 15 products included</div>
+                  </div>
+                </label>
+
+                <label class="flex items-start gap-3 p-3 rounded-2xl border border-white/8 bg-white/4 cursor-pointer hover:bg-white/5 transition-colors">
+                  <input type="radio" name="package" value="75" class="mt-1 shrink-0" onchange="updateCalculator()" />
+                  <div class="min-w-0">
+                    <div class="text-sm text-white font-medium">Social Media Auto-Reply</div>
+                    <div class="text-[11px] md:text-xs text-white/45 mt-0.5">Instant automated responses setup</div>
+                  </div>
+                </label>
+
+                <label class="flex items-start gap-3 p-3 rounded-2xl border border-white/8 bg-white/4 cursor-pointer hover:bg-white/5 transition-colors">
+                  <input type="radio" name="package" value="0" class="mt-1 shrink-0" onchange="updateCalculator()" />
+                  <div class="min-w-0">
+                    <div class="text-sm text-white font-medium">Custom Quote</div>
+                    <div class="text-[11px] md:text-xs text-white/45 mt-0.5">We will review and quote manually</div>
+                  </div>
+                </label>
+              </div>
             </div>
 
-            <!-- Header Text -->
-            <h2 class="text-5xl md:text-7xl font-medium tracking-tight text-white mb-6 leading-[1.1]">
-                Contact us for <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-white/40">your website.</span>
-            </h2>
+            <div class="p-4 rounded-2xl bg-white/4 border border-white/6">
+              <label class="text-xs uppercase tracking-widest text-white/40 block mb-3">Optional Add-ons</label>
+              <div class="space-y-3 text-sm text-white/70">
+                <label class="flex items-center justify-between gap-3 cursor-pointer">
+                  <span>Extra reel</span>
+                  <div class="flex items-center gap-3">
+                    <span class="text-white/40 mono text-xs md:text-sm">+$20</span>
+                    <input type="checkbox" id="extraReel" onchange="updateCalculator()" />
+                  </div>
+                </label>
 
-            <p class="text-lg md:text-xl text-white/50 max-w-2xl mx-auto mb-10 font-light leading-relaxed">
-                Stop waiting months for a digital presence. We deliver high-performance, custom-built websites tailored to your business in exactly 48 hours.
-            </p>
+                <label class="flex items-center justify-between gap-3 cursor-pointer">
+                  <span>Extra product photo set</span>
+                  <div class="flex items-center gap-3">
+                    <span class="text-white/40 mono text-xs md:text-sm">+$25</span>
+                    <input type="checkbox" id="extraPhotos" onchange="updateCalculator()" />
+                  </div>
+                </label>
 
-            <!-- CTA Button -->
-            <a href="mailto:hello@seaint.com" class="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-white text-black text-sm md:text-base font-medium hover:bg-gray-200 transition-all duration-300 w-full sm:w-auto shadow-xl hover:scale-105 active:scale-95">
-                Contact Us Now
-                <iconify-icon icon="solar:arrow-right-linear" class="text-lg"></iconify-icon>
-            </a>
-            
+                <label class="flex items-center justify-between gap-3 cursor-pointer">
+                  <span>Rush priority</span>
+                  <div class="flex items-center gap-3">
+                    <span class="text-white/40 mono text-xs md:text-sm">+$30</span>
+                    <input type="checkbox" id="rushOrder" onchange="updateCalculator()" />
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div class="p-5 rounded-2xl bg-white/[0.03] border border-white/8">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-sm text-white/50">Estimated total</span>
+                <span id="totalPrice" class="text-3xl font-medium text-white tracking-tight">$100</span>
+              </div>
+              <p id="packageLabel" class="text-xs text-white/40">Monthly Content Pack selected</p>
+            </div>
+          </div>
         </div>
-    </section>
 
-    <!-- Footer -->
-    <footer class="border-t border-white/5 bg-black py-16">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
-            <div class="flex items-center gap-3">
-                <div class="w-6 h-6 rounded bg-white/10 text-white flex items-center justify-center text-[10px]">
-                    <iconify-icon icon="solar:infinity-bold"></iconify-icon>
+        <div class="glass-card rounded-3xl p-5 md:p-6 fade-in" style="animation-delay:.1s;">
+          <h3 class="text-base font-medium text-white mb-3">What clients can submit</h3>
+          <ul class="space-y-3 text-sm text-white/65">
+            <li class="flex gap-2"><iconify-icon icon="solar:gallery-linear" class="mt-0.5 text-indigo-300"></iconify-icon><span>Product PNGs or cutouts</span></li>
+            <li class="flex gap-2"><iconify-icon icon="solar:camera-linear" class="mt-0.5 text-indigo-300"></iconify-icon><span>Raw iPhone product photos</span></li>
+            <li class="flex gap-2"><iconify-icon icon="solar:video-frame-linear" class="mt-0.5 text-indigo-300"></iconify-icon><span>Brand inspiration for reels</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="lg:col-span-8 fade-in" style="animation-delay:.12s;">
+        <div class="glass-card rounded-[28px] p-5 md:p-8">
+          <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6 md:mb-8">
+            <div>
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-[10px] sm:text-xs uppercase tracking-wider text-white/60 mb-4">
+                Client Intake Form
+              </div>
+              <h2 class="text-2xl md:text-3xl font-medium text-white tracking-tight">Tell us what you need</h2>
+              <p class="text-sm text-white/45 mt-2 max-w-xl">Use this section for client onboarding. Connect the form to Formspree, Basin, Zapier, or your backend later.</p>
+            </div>
+          </div>
+
+          <form class="space-y-6 md:space-y-8" action="#" method="POST" enctype="multipart/form-data">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-[10px] md:text-xs uppercase tracking-widest text-white/40 mb-2.5">Full Name</label>
+                <input type="text" name="name" class="field" placeholder="Your full name" />
+              </div>
+              <div>
+                <label class="block text-[10px] md:text-xs uppercase tracking-widest text-white/40 mb-2.5">Brand Name</label>
+                <input type="text" name="brand" class="field" placeholder="Your brand or store name" />
+              </div>
+              <div>
+                <label class="block text-[10px] md:text-xs uppercase tracking-widest text-white/40 mb-2.5">Email Address</label>
+                <input type="email" name="email" class="field" placeholder="you@example.com" />
+              </div>
+              <div>
+                <label class="block text-[10px] md:text-xs uppercase tracking-widest text-white/40 mb-2.5">Phone / WhatsApp</label>
+                <input type="text" name="phone" class="field" placeholder="Best number to contact you" />
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[10px] md:text-xs uppercase tracking-widest text-white/40 mb-3">What do you need?</label>
+              <div class="flex flex-wrap gap-2 md:gap-3" id="photoTypeGroup">
+                <button type="button" class="pill" onclick="togglePill(this)">Luxury product photos</button>
+                <button type="button" class="pill" onclick="togglePill(this)">Studio product shots</button>
+                <button type="button" class="pill" onclick="togglePill(this)">Lifestyle brand photos</button>
+                <button type="button" class="pill" onclick="togglePill(this)">Marketplace images</button>
+                <button type="button" class="pill" onclick="togglePill(this)">Flyers &amp; graphics</button>
+                <button type="button" class="pill" onclick="togglePill(this)">Short-form reels</button>
+                <button type="button" class="pill" onclick="togglePill(this)">Website / Portfolio Build</button>
+                <button type="button" class="pill" onclick="togglePill(this)">Social Media Auto-Reply</button>
+              </div>
+              <input type="hidden" name="selected_styles" id="selectedStyles" />
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-[10px] md:text-xs uppercase tracking-widest text-white/40 mb-2.5">How many products?</label>
+                <select name="product_count" class="field">
+                  <option>1 product</option>
+                  <option>2-5 products</option>
+                  <option>Up to 15 products</option>
+                  <option>16+ products</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[10px] md:text-xs uppercase tracking-widest text-white/40 mb-2.5">Where will you use the content?</label>
+                <select name="usage" class="field">
+                  <option>Instagram / TikTok</option>
+                  <option>Website / Shopify</option>
+                  <option>Amazon / Etsy / Marketplace</option>
+                  <option>Paid ads</option>
+                  <option>All of the above</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[10px] md:text-xs uppercase tracking-widest text-white/40 mb-2.5">Describe the look or requirements you need</label>
+              <textarea name="creative_direction" rows="5" class="field resize-none" placeholder="Example: I want luxury candle photos in a dark marble bathroom, warm cinematic lighting. For my website build, I want a clean minimalist look..."></textarea>
+            </div>
+
+            <div>
+              <label class="block text-[10px] md:text-xs uppercase tracking-widest text-white/40 mb-2.5">Upload your files</label>
+              <label class="upload-zone rounded-[24px] p-6 md:p-8 flex flex-col items-center justify-center text-center cursor-pointer">
+                <input type="file" name="project_files" id="projectFiles" class="hidden" multiple onchange="showFiles(this)" />
+                <div class="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-4">
+                  <iconify-icon icon="solar:upload-linear" class="text-xl md:text-2xl text-white/80"></iconify-icon>
                 </div>
-                <span class="text-xs text-white/40 font-mono">© 2024 SEAINT INC.</span>
+                <h3 class="text-sm md:text-base font-medium text-white mb-2">Drag files here or click to upload</h3>
+                <p class="text-[13px] md:text-sm text-white/45 max-w-md px-2">Upload product images, transparent PNGs, inspiration references, logos, mockups, or screenshots.</p>
+                <div class="mt-4 md:mt-5 text-[10px] md:text-xs text-white/35 mono">PNG · JPG · WEBP · MP4 · PDF</div>
+              </label>
+              <div id="fileList" class="mt-4 space-y-2"></div>
             </div>
-            <div class="flex flex-wrap justify-center gap-6 md:gap-8">
-                <a href="#" class="text-xs text-white/40 hover:text-white transition-colors">Privacy</a>
-                <a href="#" class="text-xs text-white/40 hover:text-white transition-colors">Terms</a>
-                <a href="#" class="text-xs text-white/40 hover:text-white transition-colors">Twitter</a>
-                <a href="mailto:hello@seaint.com" class="text-xs text-white/40 hover:text-white transition-colors">Contact</a>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-[10px] md:text-xs uppercase tracking-widest text-white/40 mb-2.5">Instagram / Website Link</label>
+                <input type="text" name="website" class="field" placeholder="Brand site or social page" />
+              </div>
+              <div>
+                <label class="block text-[10px] md:text-xs uppercase tracking-widest text-white/40 mb-2.5">Preferred turnaround</label>
+                <select name="turnaround" class="field">
+                  <option>Standard</option>
+                  <option>Rush</option>
+                  <option>Monthly ongoing</option>
+                </select>
+              </div>
             </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-[10px] md:text-xs uppercase tracking-widest text-white/40 mb-2.5">Package</label>
+                <select id="packageSelectForm" name="package_name" class="field" onchange="syncPackageFromForm(this.value)">
+                  <option value="17.5">Starter Photos — $17.50</option>
+                  <option value="100" selected>Monthly Content Pack — $100</option>
+                  <option value="400">Portfolio &amp; Shop — $400</option>
+                  <option value="75">Social Media Auto-Reply — $75</option>
+                  <option value="0">Custom Quote</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[10px] md:text-xs uppercase tracking-widest text-white/40 mb-2.5">Estimated total</label>
+                <div class="field flex items-center justify-between">
+                  <span class="text-sm text-white/45">Current order total</span>
+                  <span id="inlineTotal" class="text-white text-lg font-medium">$100</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3 pt-4 md:pt-2">
+              <button type="submit" class="btn-primary w-full sm:w-auto inline-flex items-center justify-center gap-2">
+                Submit Order Request
+                <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
+              </button>
+              <button type="button" class="btn-secondary w-full sm:w-auto inline-flex items-center justify-center gap-2" onclick="alert('Connect this button to Stripe checkout or your preferred payment flow.')">
+                Connect Payment Flow
+                <iconify-icon icon="solar:card-send-linear"></iconify-icon>
+              </button>
+            </div>
+          </form>
         </div>
-    </footer>
+      </div>
+    </div>
+  </section>
 
-    <!-- Logic Script -->
-    <script>
-        // Scroll Animation Observer
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate');
-                }
-            });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.animate-on-scroll').forEach((el) => observer.observe(el));
+  <section id="faq" class="px-4 md:px-6 pb-24">
+    <div class="max-w-4xl mx-auto">
+      <div class="glass-card rounded-[28px] p-6 md:p-8">
+        <h2 class="text-2xl font-medium text-white tracking-tight mb-6 md:mb-8">FAQ</h2>
+        <div class="space-y-4">
+          <div class="rounded-2xl border border-white/8 bg-white/3 p-4 md:p-5">
+            <h3 class="text-sm font-medium text-white mb-2">What files should clients upload?</h3>
+            <p class="text-[13px] md:text-sm text-white/50">Product cutouts, raw product photos, brand references, moodboards, or screenshots of styles they want.</p>
+          </div>
+          <div class="rounded-2xl border border-white/8 bg-white/3 p-4 md:p-5">
+            <h3 class="text-sm font-medium text-white mb-2">What is included in the $100 monthly package?</h3>
+            <p class="text-[13px] md:text-sm text-white/50">5 product photos, 4 reels, plus promotional flyers and content captions each month.</p>
+          </div>
+          <div class="rounded-2xl border border-white/8 bg-white/3 p-4 md:p-5">
+            <h3 class="text-sm font-medium text-white mb-2">Can this page actually receive files?</h3>
+            <p class="text-[13px] md:text-sm text-white/50">Yes, once you connect the form to a backend or service like Formspree, Uploadcare, Supabase Storage, Firebase, or a custom API endpoint.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        // Slider Fill Logic
-        function updateSliderFill(slider) {
-            const val = (slider.value - slider.min) / (slider.max - slider.min) * 100;
-            slider.style.background = `linear-gradient(to right, #6366f1 ${val}%, #1e1e2e ${val}%)`;
-        }
+  <footer class="border-t border-white/5 bg-black py-10 md:py-12 px-4 md:px-6">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
+      <div class="flex items-center gap-3">
+        <div class="w-6 h-6 rounded bg-white/10 text-white flex items-center justify-center text-xs border border-white/5">
+          <iconify-icon icon="solar:camera-linear"></iconify-icon>
+        </div>
+        <span class="text-[10px] md:text-xs text-white/40 mono">© 2026 SEAINT MEDIA.</span>
+      </div>
+      <div class="flex flex-wrap justify-center gap-4 md:gap-6">
+        <a href="index.html" class="text-xs text-white/40 hover:text-white transition-colors">Home</a>
+        <a href="seaint-media.html" class="text-xs text-white/40 hover:text-white transition-colors">Media</a>
+        <a href="#faq" class="text-xs text-white/40 hover:text-white transition-colors">FAQ</a>
+        <a href="#" class="text-xs text-white/40 hover:text-white transition-colors">Support</a>
+        <a href="#" class="text-xs text-white/40 hover:text-white transition-colors">Terms</a>
+        <a href="#" class="text-xs text-white/40 hover:text-white transition-colors">Instagram</a>
+      </div>
+    </div>
+  </footer>
 
-        document.querySelectorAll('.slider').forEach(slider => {
-            updateSliderFill(slider);
-            slider.addEventListener('input', (e) => updateSliderFill(e.target));
-        });
+  <script>
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    let isMenuOpen = false;
 
-        // Enhanced Calculator Logic
-        const industryInput = document.getElementById('industryInput');
-        const leadsRange = document.getElementById('leadsRange');
-        const staffRange = document.getElementById('staffRange');
-        
-        // Benchmarks (Deal Size, Conv Rate, Average Lead Quality)
-        const benchmarks = {
-            real_estate: { deal: 15000, conv: 0.025 },
-            medical: { deal: 500, conv: 0.15 }, // Recurring patient value low, vol high
-            construction: { deal: 8000, conv: 0.08 }, // High ticket, moderate volume
-            legal: { deal: 3500, conv: 0.05 },
-            home_services: { deal: 450, conv: 0.25 },
-            tech: { deal: 3000, conv: 0.08 }
-        };
+    function toggleMobileMenu() {
+      isMenuOpen = !isMenuOpen;
 
-        function calculate() {
-            const industry = industryInput.value;
-            const leads = parseInt(leadsRange.value);
-            const staff = parseInt(staffRange.value);
-            
-            // Logic Constants
-            const WORK_HOURS_WEEK = 40;
-            const TOTAL_HOURS_WEEK = 168;
-            const HUMAN_EFFICIENCY = 0.8; // Humans aren't 100% efficient
-            
-            // 1. Time Coverage Calculation
-            // Even if you have 10 staff, if they all work 9-5, you only cover 24% of the week.
-            // We assume standard business hours unless staff count implies shifts (e.g. > 3).
-            // Simplified: Base coverage is 24% (40/168). 
-            // If Staff > 2, we assume slight staggering, adding marginal coverage.
-            let timeCoverageRatio = (WORK_HOURS_WEEK / TOTAL_HOURS_WEEK); 
-            if (staff > 2) timeCoverageRatio += 0.05; // minor overlap benefit
-            if (staff > 5) timeCoverageRatio += 0.10; // maybe a late shift
-            if (staff === 0) timeCoverageRatio = 0;
-            
-            // Cap at reasonable max for normal businesses (e.g. 50% without AI)
-            timeCoverageRatio = Math.min(timeCoverageRatio, 0.5);
+      if (isMenuOpen) {
+        mobileMenu.classList.remove('hidden-menu');
+        mobileMenuBtn.innerHTML = '<iconify-icon icon="solar:close-circle-linear" class="text-xl"></iconify-icon>';
+      } else {
+        mobileMenu.classList.add('hidden-menu');
+        mobileMenuBtn.innerHTML = '<iconify-icon icon="solar:hamburger-menu-linear" class="text-xl"></iconify-icon>';
+      }
+    }
 
-            // 2. Capacity Calculation
-            // Can the staff actually handle the leads during open hours?
-            // Assume 1 staff can handle ~300 leads/mo if focused purely on that.
-            const staffCapacity = staff * 250; 
-            
-            // 3. Total Covered Leads
-            // Leads are lost if: (a) they call after hours, OR (b) during hours but staff is busy.
-            // We assume leads come in uniformly for simplicity (or slightly weighted to day).
-            // Let's say 60% come during day, 40% night/weekend.
-            const dayLeads = leads * 0.6;
-            const nightLeads = leads * 0.4;
-            
-            // Day logic: capped by capacity
-            let handledDayLeads = 0;
-            if (staff > 0) {
-                handledDayLeads = Math.min(dayLeads, staffCapacity);
-            }
-            
-            // Night logic: 0 handled by humans
-            const handledNightLeads = 0;
-            
-            const totalHandled = handledDayLeads + handledNightLeads;
-            const missedLeads = leads - totalHandled;
-            
-            // Revenue Calculation
-            const lostRevenue = missedLeads * benchmarks[industry].conv * benchmarks[industry].deal;
-            
-            // Coverage Percentage for UI
-            const coveragePct = leads > 0 ? Math.round((totalHandled / leads) * 100) : 0;
-            const gapPct = 100 - coveragePct;
+    mobileMenuBtn.addEventListener('click', toggleMobileMenu);
 
-            // DOM Updates
-            document.getElementById('leadsValue').textContent = leads;
-            document.getElementById('staffValue').textContent = staff + " People";
-            
-            document.getElementById('missedLeadsResult').textContent = Math.round(missedLeads);
-            document.getElementById('lostRevenueResult').textContent = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumSignificantDigits: 3 }).format(lostRevenue);
-            
-            document.getElementById('coverageDisplay').textContent = coveragePct + "%";
-            document.getElementById('gapPercent').textContent = gapPct + "% Uncovered";
-            
-            // Bar Animation
-            const bar = document.getElementById('coverageBar');
-            bar.style.width = coveragePct + '%';
-            
-            // Dynamic Coloring based on severity
-            if (coveragePct < 30) {
-                bar.classList.remove('bg-emerald-500/80', 'bg-yellow-500/80');
-                bar.classList.add('bg-red-500/80');
-                bar.style.boxShadow = '0 0 10px rgba(239,68,68,0.5)';
-            } else if (coveragePct < 60) {
-                bar.classList.remove('bg-emerald-500/80', 'bg-red-500/80');
-                bar.classList.add('bg-yellow-500/80');
-                bar.style.boxShadow = '0 0 10px rgba(234,179,8,0.5)';
-            } else {
-                bar.classList.remove('bg-red-500/80', 'bg-yellow-500/80');
-                bar.classList.add('bg-emerald-500/80');
-                bar.style.boxShadow = '0 0 10px rgba(16,185,129,0.5)';
-            }
-        }
+    document.querySelectorAll('.mobile-link').forEach((link) => {
+      link.addEventListener('click', () => {
+        if (isMenuOpen) toggleMobileMenu();
+      });
+    });
 
-        [industryInput, leadsRange, staffRange].forEach(el => el.addEventListener('input', calculate));
-        // Init
-        setTimeout(calculate, 100); 
-    </script>
+    document.addEventListener('click', (e) => {
+      const clickedInsideMenu = mobileMenu.contains(e.target);
+      const clickedButton = mobileMenuBtn.contains(e.target);
 
-</body></html>
+      if (isMenuOpen && !clickedInsideMenu && !clickedButton) {
+        toggleMobileMenu();
+      }
+    });
+
+    function getSelectedPackageValue() {
+      const selected = document.querySelector('input[name="package"]:checked');
+      return selected ? Number(selected.value) : 0;
+    }
+
+    function updateCalculator() {
+      const base = getSelectedPackageValue();
+      let total = base;
+
+      if (document.getElementById('extraReel').checked) total += 20;
+      if (document.getElementById('extraPhotos').checked) total += 25;
+      if (document.getElementById('rushOrder').checked) total += 30;
+
+      let totalText = 'Quote';
+      if (base !== 0 || total > 0) {
+        totalText = '$' + (total % 1 === 0 ? total : total.toFixed(2));
+      }
+
+      document.getElementById('totalPrice').textContent = totalText;
+      document.getElementById('inlineTotal').textContent = totalText;
+
+      let label = 'Custom Quote selected';
+      if (base === 17.5) label = 'Starter Photos selected';
+      if (base === 100) label = 'Monthly Content Pack selected';
+      if (base === 400) label = 'Portfolio & Shop selected';
+      if (base === 75) label = 'Social Media Auto-Reply selected';
+
+      document.getElementById('packageLabel').textContent = label;
+      document.getElementById('packageSelectForm').value = String(base);
+    }
+
+    function syncPackageFromForm(value) {
+      const radios = document.querySelectorAll('input[name="package"]');
+      radios.forEach((radio) => {
+        radio.checked = Number(radio.value) === Number(value);
+      });
+      updateCalculator();
+    }
+
+    function togglePill(button) {
+      button.classList.toggle('active');
+      const selected = [...document.querySelectorAll('#photoTypeGroup .pill.active')].map((btn) => btn.textContent.trim());
+      document.getElementById('selectedStyles').value = selected.join(', ');
+    }
+
+    function showFiles(input) {
+      const fileList = document.getElementById('fileList');
+      fileList.innerHTML = '';
+
+      if (!input.files || !input.files.length) return;
+
+      [...input.files].forEach((file) => {
+        const row = document.createElement('div');
+        row.className = 'flex items-center justify-between gap-3 rounded-2xl border border-white/8 bg-white/4 px-4 py-3';
+        row.innerHTML = `
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
+              <iconify-icon icon="solar:file-linear" class="text-white/75"></iconify-icon>
+            </div>
+            <div class="min-w-0">
+              <div class="text-[13px] md:text-sm text-white truncate">${file.name}</div>
+              <div class="text-[10px] md:text-xs text-white/40">${(file.size / 1024 / 1024).toFixed(2)} MB</div>
+            </div>
+          </div>
+          <span class="text-[10px] md:text-xs text-emerald-400 mono">READY</span>
+        `;
+        fileList.appendChild(row);
+      });
+    }
+
+    updateCalculator();
+  </script>
+</body>
+</html>
